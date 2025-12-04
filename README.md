@@ -519,6 +519,183 @@ $password = ''; // Sesuaikan dengan password MySQL Anda
 
 ---
 
+## 🌿 GIT WORKFLOW & BRANCHING STRATEGY
+
+### 📋 Branch Structure
+
+Kami menggunakan **feature branch workflow** untuk memastikan setiap orang bekerja di branch masing-masing tanpa konflik:
+
+```
+master (main branch - production ready)
+├── feature/cindy-frontend-ui (Frontend & UI/UX - CINDY)
+├── feature/surya-backend-core (Backend Core & Auth - SURYA)
+├── feature/elisa-backend-student (Backend Student & Database - ELISA)
+└── feature/juan-testing-integration (Testing & Integration - JUAN)
+```
+
+### 🎯 Tanggung Jawab per Branch
+
+| Branch | Developer | File/Folder yang Dikerjakan |
+|--------|-----------|----------------------------|
+| `feature/cindy-frontend-ui` | **CINDY** | `pages/`, `assets/css/`, `assets/js/` |
+| `feature/surya-backend-core` | **SURYA** | `backend/auth/`, `backend/kelas/` (dosen), `backend/materi/` (dosen), `backend/tugas/` (dosen), `backend/profil/`, `backend/dashboard/get-stats-dosen.php` |
+| `feature/elisa-backend-student` | **ELISA** | `database/`, `backend/kelas/` (mahasiswa), `backend/materi/get-materi-mahasiswa.php`, `backend/tugas/` (mahasiswa), `backend/dashboard/` (mahasiswa) |
+| `feature/juan-testing-integration` | **JUAN** | Testing, integration, bug fixes across all modules |
+
+### 🚀 Workflow untuk Setiap Developer
+
+#### 1️⃣ Mulai Kerja di Branch Sendiri
+```bash
+# Pindah ke branch kamu
+git checkout feature/nama-kamu
+
+# Pull update terbaru dari master (jika ada)
+git pull origin master
+
+# Lihat status
+git status
+```
+
+#### 2️⃣ Kerja & Commit Secara Berkala
+```bash
+# Tambahkan file yang diubah
+git add .
+
+# Commit dengan pesan yang jelas
+git commit -m "✨ feat: Implement login validation"
+
+# Atau commit spesifik
+git commit -m "🐛 fix: Fix password validation regex"
+git commit -m "💄 style: Update button hover effect"
+git commit -m "📝 docs: Add API documentation"
+```
+
+**💡 Commit Message Convention:**
+- `✨ feat:` - Fitur baru
+- `🐛 fix:` - Bug fix
+- `💄 style:` - Styling/UI changes
+- `♻️ refactor:` - Refactoring code
+- `📝 docs:` - Documentation
+- `✅ test:` - Testing
+- `🔧 config:` - Configuration
+
+#### 3️⃣ Push ke Remote Repository
+```bash
+# Push branch kamu ke GitHub
+git push origin feature/nama-kamu
+```
+
+#### 4️⃣ Buat Pull Request (PR) di GitHub
+1. Buka GitHub repository
+2. Klik tombol **"Compare & pull request"**
+3. Tulis deskripsi perubahan:
+   - Apa yang dikerjakan?
+   - Testing checklist
+   - Screenshot (jika ada perubahan UI)
+4. Assign **Juan** sebagai reviewer
+5. Submit Pull Request
+
+#### 5️⃣ Review & Merge (oleh Juan)
+```bash
+# Juan akan review code
+# Jika ada revisi, kamu perbaiki di branch kamu
+# Setelah approved, Juan akan merge ke master
+
+git checkout master
+git merge feature/nama-kamu --no-ff
+git push origin master
+```
+
+### ⚠️ ATURAN PENTING
+
+1. **JANGAN KERJA LANGSUNG DI MASTER!**
+   - Master hanya untuk kode yang sudah tested & approved
+   
+2. **JANGAN EDIT FILE DI BRANCH ORANG LAIN**
+   - Cindy: hanya edit `pages/`, `assets/`
+   - Surya: hanya edit `backend/auth/`, `backend/kelas/` (dosen), dll
+   - Elisa: hanya edit `database/`, `backend/kelas/` (mahasiswa), dll
+   - Juan: boleh edit semua untuk bug fixing & integration
+   
+3. **SERING-SERING COMMIT & PUSH**
+   - Commit minimal 1x sehari
+   - Push setiap selesai fitur kecil
+   
+4. **SYNC DENGAN MASTER SECARA BERKALA**
+   ```bash
+   # Update branch kamu dengan perubahan master
+   git checkout feature/nama-kamu
+   git pull origin master
+   ```
+
+5. **TESTING SEBELUM PUSH**
+   - Test fitur kamu sendiri dulu
+   - Pastikan tidak ada error
+   
+6. **KOMUNIKASI DI GRUP**
+   - Kasih tahu kalau sudah push
+   - Kasih tahu kalau butuh review
+   - Kasih tahu kalau ada konflik
+
+### 🔄 Contoh Workflow Lengkap (SURYA)
+
+```bash
+# 1. Pindah ke branch SURYA
+git checkout feature/surya-backend-core
+
+# 2. Mulai coding (misal: buat login.php)
+# Edit file backend/auth/login.php
+
+# 3. Test di localhost
+# http://localhost/TUBES_PRK_PEMWEB_2025_KELOMPOK-15/backend/auth/login.php
+
+# 4. Commit
+git add backend/auth/login.php
+git commit -m "✨ feat: Implement login with session management"
+
+# 5. Push ke GitHub
+git push origin feature/surya-backend-core
+
+# 6. Buat Pull Request di GitHub
+# Tunggu review dari Juan
+
+# 7. Setelah di-merge, pull master
+git checkout master
+git pull origin master
+```
+
+### 🐛 Troubleshooting
+
+**Problem: Ada konflik saat merge**
+```bash
+# 1. Pull master dulu
+git checkout feature/nama-kamu
+git pull origin master
+
+# 2. Resolve conflict di VS Code
+# (VS Code akan highlight conflict)
+
+# 3. Commit hasil resolve
+git add .
+git commit -m "🔀 merge: Resolve conflict with master"
+git push origin feature/nama-kamu
+```
+
+**Problem: Salah commit di branch master**
+```bash
+# 1. Bikin branch baru dari master
+git branch feature/fix-nama-kamu
+
+# 2. Reset master ke commit sebelumnya
+git checkout master
+git reset --hard origin/master
+
+# 3. Checkout ke branch baru
+git checkout feature/fix-nama-kamu
+```
+
+---
+
 ## 📞 KONTAK TIM
 
 | Anggota | Role | Expertise |
@@ -533,10 +710,6 @@ $password = ''; // Sesuaikan dengan password MySQL Anda
 - Authentication Issues → **Surya**
 - Database Issues → **Elisa**
 - Integration/Git Issues → **Juan**
-
----
-
-
 
 ---
 
