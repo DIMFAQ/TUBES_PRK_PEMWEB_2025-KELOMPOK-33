@@ -3,349 +3,698 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar - Sistem Kelas Online Mini</title>
+    <title>Daftar - KelasOnline</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/forms.css">
+    <style>
+        /* Custom animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes slide-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-in {
+            animation: slide-in 0.5s ease-out;
+        }
+    </style>
 </head>
-<body>
-    <div class="auth-container">
-        <div class="auth-card">
-            <!-- Header -->
-            <div class="auth-header">
-                <div class="auth-logo">📚</div>
-                <h1 class="auth-title">Daftar Akun Baru</h1>
-                <p class="auth-subtitle">Bergabunglah dengan platform e-learning kami</p>
+<body class="bg-gray-50">
+    <!-- Split Screen Container -->
+    <div class="auth-split flex min-h-screen">
+        <!-- Left Side - Hero Section (Biru) -->
+        <div class="auth-hero-side flex-1 bg-gradient-to-br from-blue-950 via-blue-800 to-blue-600 p-8 lg:p-12 flex items-center justify-center relative overflow-hidden">
+            <!-- Animated background circles -->
+            <div class="absolute top-0 right-0 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+            
+            <div class="auth-hero-content relative z-10 max-w-xl animate-slide-in">
+                <!-- Logo & Badge -->
+                <div class="hero-badge inline-block bg-white/10 backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase border border-white/20 text-white mb-8 shadow-lg">
+                    UNIVERSITAS LAMPUNG
+                </div>
+                
+                <!-- Ilustrasi -->
+                <div class="hero-illustration text-center my-10">
+                    <div class="hero-icon-large inline-block text-white animate-float drop-shadow-2xl">
+                        <svg class="w-32 h-32 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Title -->
+                <h1 class="hero-title text-5xl lg:text-6xl font-extrabold text-white mb-3 drop-shadow-lg">
+                    KelasOnline
+                </h1>
+                <h2 class="hero-subtitle text-2xl lg:text-3xl font-light text-white/95 mb-6">
+                    Platform E-Learning Modern
+                </h2>
+                <p class="hero-description text-base lg:text-lg text-white/90 leading-relaxed mb-10">
+                    Dosen membuat kelas, upload materi (PDF/video), membuat tugas, dan menilai submission. 
+                    Mahasiswa join kelas dengan kode, mengakses materi pembelajaran, submit tugas, dan melihat nilai.
+                </p>
+
+                <!-- Feature List -->
+                <div class="hero-features space-y-4">
+                    <div class="hero-feature-item flex items-start gap-4 bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10 hover:bg-white/10 hover:translate-x-2 transition-all duration-300 group">
+                        <div class="feature-icon w-10 h-10 flex-shrink-0 text-white">
+                            <svg class="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                        </div>
+                        <div class="feature-text flex-1">
+                            <strong class="block text-lg font-semibold text-white mb-1 group-hover:text-blue-200 transition-colors">
+                                Kelola Kelas & Materi
+                            </strong>
+                            <p class="text-sm text-white/80">Upload PDF, video, buat tugas dengan mudah</p>
+                        </div>
+                    </div>
+                    <div class="hero-feature-item flex items-start gap-4 bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10 hover:bg-white/10 hover:translate-x-2 transition-all duration-300 group">
+                        <div class="feature-icon w-10 h-10 flex-shrink-0 text-white">
+                            <svg class="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="feature-text flex-1">
+                            <strong class="block text-lg font-semibold text-white mb-1 group-hover:text-blue-200 transition-colors">
+                                Submit Tugas & Nilai
+                            </strong>
+                            <p class="text-sm text-white/80">Mahasiswa submit, dosen beri nilai & feedback</p>
+                        </div>
+                    </div>
+                    <div class="hero-feature-item flex items-start gap-4 bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10 hover:bg-white/10 hover:translate-x-2 transition-all duration-300 group">
+                        <div class="feature-icon w-10 h-10 flex-shrink-0 text-white">
+                            <svg class="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                        </div>
+                        <div class="feature-text flex-1">
+                            <strong class="block text-lg font-semibold text-white mb-1 group-hover:text-blue-200 transition-colors">
+                                Dashboard & Statistik
+                            </strong>
+                            <p class="text-sm text-white/80">Pantau progress dengan dashboard lengkap</p>
+                        </div>
+                    </div>
+                    <div class="hero-feature-item flex items-start gap-4 bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10 hover:bg-white/10 hover:translate-x-2 transition-all duration-300 group">
+                        <div class="feature-icon w-10 h-10 flex-shrink-0 text-white">
+                            <svg class="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </div>
+                        <div class="feature-text flex-1">
+                            <strong class="block text-lg font-semibold text-white mb-1 group-hover:text-blue-200 transition-colors">
+                                Keamanan Terjamin
+                            </strong>
+                            <p class="text-sm text-white/80">Data terlindungi dengan sistem terintegrasi</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
 
-            <!-- Alert -->
-            <div id="alertContainer" style="padding: 0 2rem; padding-top: 2rem;"></div>
+        <!-- Right Side - Form Section (Putih) -->
+        <div class="auth-form-side flex-1 bg-white p-8 lg:p-12 flex items-center justify-center overflow-y-auto">
+            <div class="auth-form-container w-full max-w-md animate-slide-in">
+                <!-- Back Link -->
+                <a href="index.html" class="auth-back-link inline-flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium text-sm mb-8 transition-all hover:-translate-x-1">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Kembali ke Beranda
+                </a>
 
-            <!-- Body -->
-            <div class="auth-body">
-                <form id="registerForm" novalidate>
+                <!-- Header -->
+                <div class="auth-form-header mb-8">
+                    <h1 class="form-title text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                        Daftar Akun Baru
+                    </h1>
+                    <p class="form-subtitle text-gray-600 text-base">
+                        Bergabunglah dengan platform e-learning kami
+                    </p>
+                </div>
+
+                <!-- Alert Container -->
+                <div id="alertContainer" class="mb-4"></div>
+
+                <!-- Form -->
+                <form id="registerForm" novalidate class="space-y-5">
                     <!-- Nama Lengkap -->
-                    <div class="form-group form-group-icon">
-                        <label for="nama" class="form-label">Nama Lengkap</label>
-                        <span class="form-icon">👤</span>
-                        <input 
-                            type="text" 
-                            id="nama" 
-                            name="nama" 
-                            class="form-input" 
-                            placeholder="Masukkan nama lengkap"
-                            required
-                        >
-                        <div class="form-error" id="namaError">Nama lengkap harus diisi</div>
+                    <div class="form-group">
+                        <label for="nama" class="form-label block text-sm font-semibold text-gray-700 mb-2">
+                            Nama Lengkap
+                        </label>
+                        <div class="relative">
+                            <span class="form-icon absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                            </span>
+                            <input 
+                                type="text" 
+                                id="nama" 
+                                name="nama" 
+                                class="form-input w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-gray-900 placeholder-gray-400" 
+                                placeholder="Masukkan nama lengkap"
+                                required
+                            >
+                        </div>
+                        <div class="form-error hidden text-red-600 text-sm mt-1.5 flex items-center gap-1" id="namaError">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                            Nama lengkap harus diisi
+                        </div>
                     </div>
 
                     <!-- Email -->
-                    <div class="form-group form-group-icon">
-                        <label for="email" class="form-label">Email</label>
-                        <span class="form-icon">📧</span>
-                        <input 
-                            type="email" 
-                            id="email" 
-                            name="email" 
-                            class="form-input" 
-                            placeholder="nama@email.com"
-                            required
-                        >
-                        <div class="form-error" id="emailError">Email tidak valid</div>
+                    <div class="form-group">
+                        <label for="email" class="form-label block text-sm font-semibold text-gray-700 mb-2">
+                            Email
+                        </label>
+                        <div class="relative">
+                            <span class="form-icon absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                            </span>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                class="form-input w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-gray-900 placeholder-gray-400" 
+                                placeholder="nama@email.com"
+                                required
+                            >
+                        </div>
+                        <div class="form-error hidden text-red-600 text-sm mt-1.5 flex items-center gap-1" id="emailError">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                            Email tidak valid
+                        </div>
                     </div>
 
                     <!-- Role Selection -->
                     <div class="form-group">
-                        <label class="form-label">Daftar Sebagai</label>
-                        <div class="radio-group">
-                            <label class="radio-option" id="radioMahasiswa">
-                                <input type="radio" name="role" value="mahasiswa" checked>
-                                <div>
-                                    <strong>🎓 Mahasiswa</strong>
-                                    <p style="font-size: 0.875rem; color: var(--gray); margin: 0.25rem 0 0 0;">
-                                        Untuk mengikuti kelas dan mengakses materi
-                                    </p>
+                        <label class="form-label block text-sm font-semibold text-gray-700 mb-3">
+                            Daftar Sebagai
+                        </label>
+                        <div class="radio-group grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="radio-option cursor-pointer group" id="radioMahasiswa">
+                                <input type="radio" name="role" value="mahasiswa" checked class="hidden peer">
+                                <div class="radio-content p-4 border-2 border-gray-200 rounded-lg hover:border-blue-400 peer-checked:border-blue-600 peer-checked:bg-blue-50 transition-all hover:shadow-md">
+                                    <span class="radio-badge inline-block px-3 py-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold rounded-full mb-2 shadow-sm">
+                                        MAHASISWA
+                                    </span>
+                                    <strong class="block text-base font-semibold text-gray-900 mb-1">Student Account</strong>
+                                    <p class="text-sm text-gray-600">Untuk mengikuti kelas dan mengakses materi</p>
                                 </div>
                             </label>
-                            <label class="radio-option" id="radioDosen">
-                                <input type="radio" name="role" value="dosen">
-                                <div>
-                                    <strong>👨‍🏫 Dosen</strong>
-                                    <p style="font-size: 0.875rem; color: var(--gray); margin: 0.25rem 0 0 0;">
-                                        Untuk membuat dan mengelola kelas
-                                    </p>
+                            <label class="radio-option cursor-pointer group" id="radioDosen">
+                                <input type="radio" name="role" value="dosen" class="hidden peer">
+                                <div class="radio-content p-4 border-2 border-gray-200 rounded-lg hover:border-green-400 peer-checked:border-green-600 peer-checked:bg-green-50 transition-all hover:shadow-md">
+                                    <span class="radio-badge inline-block px-3 py-1 bg-gradient-to-r from-green-500 to-green-600 text-white text-xs font-bold rounded-full mb-2 shadow-sm">
+                                        DOSEN
+                                    </span>
+                                    <strong class="block text-base font-semibold text-gray-900 mb-1">Lecturer Account</strong>
+                                    <p class="text-sm text-gray-600">Untuk membuat dan mengelola kelas</p>
                                 </div>
                             </label>
+                        </div>
+                    </div>
+
+                    <!-- NPM/NIDN -->
+                    <div class="form-group">
+                        <label for="npm_nidn" class="form-label block text-sm font-semibold text-gray-700 mb-2" id="npmNidnLabel">NPM</label>
+                        <div class="relative">
+                            <span class="form-icon absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" id="npmNidnIcon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                                </svg>
+                            </span>
+                            <input 
+                                type="text" 
+                                id="npm_nidn" 
+                                name="npm_nidn" 
+                                class="form-input w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-gray-900 placeholder-gray-400" 
+                                placeholder="Masukkan NPM"
+                                required
+                            >
+                        </div>
+                        <div class="form-error hidden text-red-600 text-sm mt-1.5 flex items-center gap-1" id="npmNidnError">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                            NPM harus diisi
                         </div>
                     </div>
 
                     <!-- Password -->
-                    <div class="form-group form-group-icon">
-                        <label for="password" class="form-label">Password</label>
-                        <span class="form-icon">🔒</span>
-                        <input 
-                            type="password" 
-                            id="password" 
-                            name="password" 
-                            class="form-input" 
-                            placeholder="Minimal 8 karakter"
-                            required
-                        >
-                        <button type="button" class="form-toggle-password" id="togglePassword">
-                            👁️
-                        </button>
-                        <div class="form-error" id="passwordError">Password minimal 8 karakter</div>
+                    <div class="form-group">
+                        <label for="password" class="form-label block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                        <div class="relative">
+                            <span class="form-icon absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </span>
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                class="form-input w-full pl-12 pr-12 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-gray-900 placeholder-gray-400" 
+                                placeholder="Minimal 8 karakter"
+                                required
+                            >
+                            <button type="button" class="form-toggle-password absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 w-5 h-5 transition-colors" id="togglePassword">
+                                <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="form-error hidden text-red-600 text-sm mt-1.5 flex items-center gap-1" id="passwordError">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                            Password minimal 8 karakter
+                        </div>
                         
                         <!-- Password Strength -->
-                        <div class="password-strength" id="passwordStrength">
-                            <div class="strength-bar">
-                                <div class="strength-progress" id="strengthProgress"></div>
+                        <div class="password-strength mt-2" id="passwordStrength" style="display: none;">
+                            <div class="strength-bars flex gap-1.5 mb-2">
+                                <div class="strength-bar h-1.5 flex-1 bg-gray-200 rounded-full transition-all"></div>
+                                <div class="strength-bar h-1.5 flex-1 bg-gray-200 rounded-full transition-all"></div>
+                                <div class="strength-bar h-1.5 flex-1 bg-gray-200 rounded-full transition-all"></div>
+                                <div class="strength-bar h-1.5 flex-1 bg-gray-200 rounded-full transition-all"></div>
                             </div>
-                            <div class="strength-text" id="strengthText"></div>
+                            <div class="strength-text text-sm font-medium" id="strengthText"></div>
                         </div>
                     </div>
 
                     <!-- Confirm Password -->
-                    <div class="form-group form-group-icon">
-                        <label for="confirmPassword" class="form-label">Konfirmasi Password</label>
-                        <span class="form-icon">🔒</span>
-                        <input 
-                            type="password" 
-                            id="confirmPassword" 
-                            name="confirmPassword" 
-                            class="form-input" 
-                            placeholder="Ulangi password"
-                            required
-                        >
-                        <button type="button" class="form-toggle-password" id="toggleConfirmPassword">
-                            👁️
-                        </button>
-                        <div class="form-error" id="confirmPasswordError">Password tidak cocok</div>
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label block text-sm font-semibold text-gray-700 mb-2">Konfirmasi Password</label>
+                        <div class="relative">
+                            <span class="form-icon absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </span>
+                            <input 
+                                type="password" 
+                                id="confirmPassword" 
+                                name="confirmPassword" 
+                                class="form-input w-full pl-12 pr-12 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-gray-900 placeholder-gray-400" 
+                                placeholder="Ketik ulang password"
+                                required
+                            >
+                            <button type="button" class="form-toggle-password absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 w-5 h-5 transition-colors" id="toggleConfirmPassword">
+                                <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="form-error hidden text-red-600 text-sm mt-1.5 flex items-center gap-1" id="confirmPasswordError">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                            Password tidak cocok
+                        </div>
                     </div>
-
-                    <!-- Terms & Conditions -->
-                    <div class="form-check">
-                        <input type="checkbox" id="terms" name="terms" class="form-check-input" required>
-                        <label for="terms" class="form-check-label">
-                            Saya menyetujui <a href="#" class="form-link">Syarat & Ketentuan</a>
-                        </label>
-                    </div>
-                    <div class="form-error" id="termsError">Anda harus menyetujui syarat & ketentuan</div>
 
                     <!-- Submit Button -->
-                    <button type="submit" class="btn btn-primary btn-block" id="registerBtn">
-                        Daftar Sekarang
+                    <button type="submit" class="btn w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3.5 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none" id="registerBtn">
+                        <span class="btn-text inline-flex items-center gap-2">
+                            Daftar Sekarang
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </span>
+                        <span class="btn-loader inline-flex items-center gap-2" style="display: none;">
+                            <svg class="animate-spin w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+                                <path d="M12 2a10 10 0 0 1 10 10" stroke-opacity="1"></path>
+                            </svg>
+                            Memproses...
+                        </span>
                     </button>
                 </form>
-            </div>
 
-            <!-- Footer -->
-            <div class="auth-footer">
-                <p style="margin-bottom: 1rem; color: var(--gray);">
-                    Sudah punya akun? 
-                    <a href="login.html" class="form-link">Masuk di sini</a>
-                </p>
-                <a href="../pages/index.html" class="form-link">
-                    ← Kembali ke Beranda
-                </a>
+                <!-- Footer -->
+                <div class="auth-form-footer text-center mt-8 pt-6 border-t border-gray-200">
+                    <p class="text-gray-600">
+                        Sudah punya akun? 
+                        <a href="login.html" class="form-link text-blue-600 hover:text-blue-700 font-semibold hover:underline transition-colors">
+                            Masuk
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner"></div>
-        <p>Mendaftarkan akun...</p>
     </div>
 
     <script src="../assets/js/validation.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const registerForm = document.getElementById('registerForm');
+            const form = document.getElementById('registerForm');
             const namaInput = document.getElementById('nama');
             const emailInput = document.getElementById('email');
             const passwordInput = document.getElementById('password');
             const confirmPasswordInput = document.getElementById('confirmPassword');
-            const termsCheckbox = document.getElementById('terms');
-            const togglePassword = document.getElementById('togglePassword');
-            const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-            const registerBtn = document.getElementById('registerBtn');
-            const loadingOverlay = document.getElementById('loadingOverlay');
+            const npmNidnInput = document.getElementById('npm_nidn');
             const alertContainer = document.getElementById('alertContainer');
+
+            // Role Selection
             const radioMahasiswa = document.getElementById('radioMahasiswa');
             const radioDosen = document.getElementById('radioDosen');
-
-            // Radio button styling
-            document.querySelectorAll('input[name="role"]').forEach(radio => {
-                radio.addEventListener('change', function() {
-                    radioMahasiswa.classList.remove('checked');
-                    radioDosen.classList.remove('checked');
-                    if (this.value === 'mahasiswa') {
-                        radioMahasiswa.classList.add('checked');
-                    } else {
-                        radioDosen.classList.add('checked');
-                    }
-                });
-            });
-            radioMahasiswa.classList.add('checked');
+            const npmNidnLabel = document.getElementById('npmNidnLabel');
+            const npmNidnIcon = document.getElementById('npmNidnIcon');
 
             // Toggle Password Visibility
-            togglePassword.addEventListener('click', function() {
+            document.getElementById('togglePassword').addEventListener('click', function() {
                 const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
                 passwordInput.setAttribute('type', type);
-                this.textContent = type === 'password' ? '👁️' : '🙈';
+                const eyeOpen = this.querySelector('.eye-open');
+                const eyeClosed = this.querySelector('.eye-closed');
+                if (type === 'password') {
+                    eyeOpen.style.display = 'block';
+                    eyeClosed.style.display = 'none';
+                } else {
+                    eyeOpen.style.display = 'none';
+                    eyeClosed.style.display = 'block';
+                }
             });
 
-            toggleConfirmPassword.addEventListener('click', function() {
+            document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
                 const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
                 confirmPasswordInput.setAttribute('type', type);
-                this.textContent = type === 'password' ? '👁️' : '🙈';
+                const eyeOpen = this.querySelector('.eye-open');
+                const eyeClosed = this.querySelector('.eye-closed');
+                if (type === 'password') {
+                    eyeOpen.style.display = 'block';
+                    eyeClosed.style.display = 'none';
+                } else {
+                    eyeOpen.style.display = 'none';
+                    eyeClosed.style.display = 'block';
+                }
+            });
+
+            // Role Card Selection
+            radioMahasiswa.addEventListener('click', function() {
+                radioMahasiswa.classList.add('active');
+                radioDosen.classList.remove('active');
+                npmNidnLabel.textContent = 'NPM';
+                npmNidnInput.placeholder = 'Masukkan NPM';
+                document.getElementById('npmNidnError').textContent = 'NPM harus diisi';
+            });
+
+            radioDosen.addEventListener('click', function() {
+                radioDosen.classList.add('active');
+                radioMahasiswa.classList.remove('active');
+                npmNidnLabel.textContent = 'NIDN';
+                npmNidnInput.placeholder = 'Masukkan NIDN';
+                document.getElementById('npmNidnError').textContent = 'NIDN harus diisi';
             });
 
             // Password Strength Indicator
             passwordInput.addEventListener('input', function() {
                 const password = this.value;
                 const strengthIndicator = document.getElementById('passwordStrength');
-                const strengthProgress = document.getElementById('strengthProgress');
                 const strengthText = document.getElementById('strengthText');
+                const bars = document.querySelectorAll('.strength-bar');
 
                 if (password.length === 0) {
-                    strengthIndicator.classList.remove('show');
+                    strengthIndicator.style.display = 'none';
                     return;
                 }
 
-                strengthIndicator.classList.add('show');
+                strengthIndicator.style.display = 'block';
 
-                const strength = checkPasswordStrength(password);
-                
-                strengthProgress.className = 'strength-progress ' + strength.level;
-                strengthText.className = 'strength-text ' + strength.level;
-                strengthText.textContent = strength.text;
+                let strength = 0;
+                if (password.length >= 8) strength++;
+                if (password.length >= 12) strength++;
+                if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+                if (/\d/.test(password)) strength++;
+                if (/[^a-zA-Z\d]/.test(password)) strength++;
+
+                // Reset all bars
+                bars.forEach(bar => {
+                    bar.classList.remove('active', 'weak', 'medium', 'strong');
+                });
+
+                // Update bars based on strength with Tailwind classes
+                if (strength <= 2) {
+                    bars[0].classList.add('bg-red-500');
+                    strengthText.textContent = 'Lemah';
+                    strengthText.className = 'strength-text text-sm font-medium text-red-600';
+                } else if (strength <= 3) {
+                    bars[0].classList.add('bg-yellow-500');
+                    bars[1].classList.add('bg-yellow-500');
+                    strengthText.textContent = 'Sedang';
+                    strengthText.className = 'strength-text text-sm font-medium text-yellow-600';
+                } else if (strength <= 4) {
+                    bars[0].classList.add('bg-blue-500');
+                    bars[1].classList.add('bg-blue-500');
+                    bars[2].classList.add('bg-blue-500');
+                    strengthText.textContent = 'Kuat';
+                    strengthText.className = 'strength-text text-sm font-medium text-blue-600';
+                } else {
+                    bars.forEach(bar => bar.classList.add('bg-green-500'));
+                    strengthText.textContent = 'Sangat Kuat';
+                    strengthText.className = 'strength-text text-sm font-medium text-green-600';
+                }
             });
 
-            // Real-time validation
-            namaInput.addEventListener('blur', function() {
-                validateRequired(this.value, 'namaError', 'Nama lengkap harus diisi');
-            });
+            // Validation Functions
+            function showError(input, message) {
+                const errorElement = document.getElementById(input.id + 'Error');
+                const errorIcon = errorElement.querySelector('svg + *') || errorElement.childNodes[errorElement.childNodes.length - 1];
+                if (errorIcon && errorIcon.nodeType === 3) {
+                    errorIcon.textContent = message;
+                } else {
+                    errorElement.innerHTML = `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>${message}`;
+                }
+                errorElement.classList.remove('hidden');
+                input.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/10');
+                input.classList.remove('border-green-500', 'focus:border-green-500', 'focus:ring-green-500/10');
+            }
 
-            emailInput.addEventListener('blur', function() {
-                validateEmail(this.value, 'emailError');
-            });
+            function showSuccess(input) {
+                const errorElement = document.getElementById(input.id + 'Error');
+                errorElement.classList.add('hidden');
+                input.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/10');
+                input.classList.add('border-green-500', 'focus:border-green-500', 'focus:ring-green-500/10');
+            }
 
-            passwordInput.addEventListener('blur', function() {
-                validatePassword(this.value, 'passwordError');
-            });
-
-            confirmPasswordInput.addEventListener('blur', function() {
-                validatePasswordMatch(passwordInput.value, this.value, 'confirmPasswordError');
-            });
-
-            // Form Submit
-            registerForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                // Clear previous alerts
-                alertContainer.innerHTML = '';
-
+            function validateNama() {
                 const nama = namaInput.value.trim();
+                if (nama === '') {
+                    showError(namaInput, 'Nama lengkap harus diisi');
+                    return false;
+                } else if (nama.length < 3) {
+                    showError(namaInput, 'Nama minimal 3 karakter');
+                    return false;
+                } else {
+                    showSuccess(namaInput);
+                    return true;
+                }
+            }
+
+            function validateEmail() {
                 const email = emailInput.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                
+                if (email === '') {
+                    showError(emailInput, 'Email harus diisi');
+                    return false;
+                } else if (!emailRegex.test(email)) {
+                    showError(emailInput, 'Format email tidak valid');
+                    return false;
+                } else {
+                    showSuccess(emailInput);
+                    return true;
+                }
+            }
+
+            function validateNpmNidn() {
+                const value = npmNidnInput.value.trim();
+                const role = document.querySelector('input[name="role"]:checked').value;
+                
+                if (value === '') {
+                    showError(npmNidnInput, role === 'mahasiswa' ? 'NPM harus diisi' : 'NIDN harus diisi');
+                    return false;
+                } else if (value.length < 5) {
+                    showError(npmNidnInput, role === 'mahasiswa' ? 'NPM minimal 5 karakter' : 'NIDN minimal 5 karakter');
+                    return false;
+                } else {
+                    showSuccess(npmNidnInput);
+                    return true;
+                }
+            }
+
+            function validatePassword() {
+                const password = passwordInput.value;
+                
+                if (password === '') {
+                    showError(passwordInput, 'Password harus diisi');
+                    return false;
+                } else if (password.length < 8) {
+                    showError(passwordInput, 'Password minimal 8 karakter');
+                    return false;
+                } else {
+                    showSuccess(passwordInput);
+                    return true;
+                }
+            }
+
+            function validateConfirmPassword() {
                 const password = passwordInput.value;
                 const confirmPassword = confirmPasswordInput.value;
-                const role = document.querySelector('input[name="role"]:checked').value;
-                const terms = termsCheckbox.checked;
+                
+                if (confirmPassword === '') {
+                    showError(confirmPasswordInput, 'Konfirmasi password harus diisi');
+                    return false;
+                } else if (password !== confirmPassword) {
+                    showError(confirmPasswordInput, 'Password tidak cocok');
+                    return false;
+                } else {
+                    showSuccess(confirmPasswordInput);
+                    return true;
+                }
+            }
+
+            // Real-time Validation
+            namaInput.addEventListener('blur', validateNama);
+            emailInput.addEventListener('blur', validateEmail);
+            npmNidnInput.addEventListener('blur', validateNpmNidn);
+            passwordInput.addEventListener('blur', validatePassword);
+            confirmPasswordInput.addEventListener('blur', validateConfirmPassword);
+
+            // Form Submit
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
 
                 // Validate all fields
-                const isNamaValid = validateRequired(nama, 'namaError', 'Nama lengkap harus diisi');
-                const isEmailValid = validateEmail(email, 'emailError');
-                const isPasswordValid = validatePassword(password, 'passwordError');
-                const isConfirmPasswordValid = validatePasswordMatch(password, confirmPassword, 'confirmPasswordError');
-                
-                // Validate terms
-                const termsError = document.getElementById('termsError');
-                if (!terms) {
-                    termsError.classList.add('show');
-                } else {
-                    termsError.classList.remove('show');
-                }
+                const isNamaValid = validateNama();
+                const isEmailValid = validateEmail();
+                const isNpmNidnValid = validateNpmNidn();
+                const isPasswordValid = validatePassword();
+                const isConfirmPasswordValid = validateConfirmPassword();
 
-                if (!isNamaValid || !isEmailValid || !isPasswordValid || !isConfirmPasswordValid || !terms) {
-                    showAlert('error', 'Mohon lengkapi semua field dengan benar');
-                    return;
-                }
-
-                // Show loading
-                loadingOverlay.classList.add('show');
-                registerBtn.disabled = true;
-
-                // Simulate API call (replace with actual backend call)
-                setTimeout(() => {
-                    // Hide loading
-                    loadingOverlay.classList.remove('show');
-                    registerBtn.disabled = false;
-
-                    // Success
-                    showAlert('success', 'Pendaftaran berhasil! Mengalihkan ke halaman login...');
+                if (isNamaValid && isEmailValid && isNpmNidnValid && isPasswordValid && isConfirmPasswordValid) {
+                    // Show loading state
+                    const registerBtn = document.getElementById('registerBtn');
+                    const btnText = registerBtn.querySelector('.btn-text');
+                    const btnLoader = registerBtn.querySelector('.btn-loader');
                     
+                    registerBtn.disabled = true;
+                    btnText.style.display = 'none';
+                    btnLoader.style.display = 'inline-flex';
+
+                    // Simulate API call
                     setTimeout(() => {
-                        window.location.href = 'login.html';
-                    }, 2000);
+                        // Show success alert with Tailwind
+                        alertContainer.innerHTML = `
+                            <div class="alert bg-green-50 border-2 border-green-500 rounded-lg p-4 flex items-start gap-3 animate-slide-in">
+                                <svg class="w-6 h-6 text-green-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M12 6v6m0 4h.01"></path>
+                                </svg>
+                                <div class="flex-1">
+                                    <strong class="block text-green-900 font-semibold mb-1">Berhasil!</strong>
+                                    <p class="text-green-700 text-sm">Akun Anda telah terdaftar. Redirecting...</p>
+                                </div>
+                            </div>
+                        `;
+                        alertContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
-                    // INTEGRATION NOTE for Juan:
-                    // Replace above with actual backend call like:
-                    /*
-                    fetch('../backend/auth/register.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ nama, email, password, role })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            showAlert('success', 'Pendaftaran berhasil! Mengalihkan ke login...');
-                            setTimeout(() => {
-                                window.location.href = 'login.html';
-                            }, 2000);
-                        } else {
-                            showAlert('error', data.message || 'Pendaftaran gagal!');
-                        }
-                    })
-                    .catch(error => {
-                        showAlert('error', 'Terjadi kesalahan. Silakan coba lagi.');
-                        console.error('Error:', error);
-                    });
-                    */
-                }, 1500);
-            });
-
-            // Show Alert Function
-            function showAlert(type, message) {
-                const alertClass = type === 'success' ? 'alert-success' : 'alert-error';
-                alertContainer.innerHTML = `
-                    <div class="alert ${alertClass}">
-                        ${type === 'success' ? '✓' : '✕'} ${message}
-                    </div>
-                `;
-            }
-
-            // Check Password Strength
-            function checkPasswordStrength(password) {
-                let strength = 0;
-                
-                if (password.length >= 8) strength++;
-                if (password.match(/[a-z]+/)) strength++;
-                if (password.match(/[A-Z]+/)) strength++;
-                if (password.match(/[0-9]+/)) strength++;
-                if (password.match(/[$@#&!]+/)) strength++;
-
-                if (strength <= 2) {
-                    return { level: 'weak', text: 'Password Lemah' };
-                } else if (strength <= 4) {
-                    return { level: 'medium', text: 'Password Sedang' };
+                        // Redirect after success
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 1500);
+                    }, 1000);
                 } else {
-                    return { level: 'strong', text: 'Password Kuat' };
+                    // Show error alert with Tailwind
+                    alertContainer.innerHTML = `
+                        <div class="alert bg-red-50 border-2 border-red-500 rounded-lg p-4 flex items-start gap-3 animate-slide-in">
+                            <svg class="w-6 h-6 text-red-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                            </svg>
+                            <div class="flex-1">
+                                <strong class="block text-red-900 font-semibold mb-1">Oops!</strong>
+                                <p class="text-red-700 text-sm">Mohon periksa kembali data yang Anda masukkan.</p>
+                            </div>
+                        </div>
+                    `;
+                    alertContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }
-            }
+            });
         });
     </script>
 </body>
