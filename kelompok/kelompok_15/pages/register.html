@@ -4,698 +4,313 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar - KelasOnline</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/forms.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Custom animations */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #d4c5f9 0%, #c5b8e8 100%);
+            min-height: 100vh;
+        }
+
+        .card-3d {
+            background: #ffffff;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .input-field {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+        }
+
+        .input-field:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+
+        .btn-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .illustration-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
         }
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
+
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        @keyframes slide-in {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        .step-indicator {
+            transition: all 0.3s ease;
         }
-        .animate-slide-in {
-            animation: slide-in 0.5s ease-out;
+
+        .step-indicator.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
         }
     </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Split Screen Container -->
-    <div class="auth-split flex min-h-screen">
-        <!-- Left Side - Hero Section (Biru) -->
-        <div class="auth-hero-side flex-1 bg-gradient-to-br from-blue-950 via-blue-800 to-blue-600 p-8 lg:p-12 flex items-center justify-center relative overflow-hidden">
-            <!-- Animated background circles -->
-            <div class="absolute top-0 right-0 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
-            <div class="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-            
-            <div class="auth-hero-content relative z-10 max-w-xl animate-slide-in">
-                <!-- Logo & Badge -->
-                <div class="hero-badge inline-block bg-white/10 backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase border border-white/20 text-white mb-8 shadow-lg">
-                    UNIVERSITAS LAMPUNG
-                </div>
-                
-                <!-- Ilustrasi -->
-                <div class="hero-illustration text-center my-10">
-                    <div class="hero-icon-large inline-block text-white animate-float drop-shadow-2xl">
-                        <svg class="w-32 h-32 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                        </svg>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-5xl max-h-screen overflow-auto">
+        <div class="grid md:grid-cols-2 gap-6 items-center">
+            <!-- Left Side - Illustration -->
+            <div class="hidden md:block">
+                <div class="text-center px-4">
+                    <div class="illustration-float text-7xl mb-4">
+                        🎓
                     </div>
-                </div>
-
-                <!-- Title -->
-                <h1 class="hero-title text-5xl lg:text-6xl font-extrabold text-white mb-3 drop-shadow-lg">
-                    KelasOnline
-                </h1>
-                <h2 class="hero-subtitle text-2xl lg:text-3xl font-light text-white/95 mb-6">
-                    Platform E-Learning Modern
-                </h2>
-                <p class="hero-description text-base lg:text-lg text-white/90 leading-relaxed mb-10">
-                    Dosen membuat kelas, upload materi (PDF/video), membuat tugas, dan menilai submission. 
-                    Mahasiswa join kelas dengan kode, mengakses materi pembelajaran, submit tugas, dan melihat nilai.
-                </p>
-
-                <!-- Feature List -->
-                <div class="hero-features space-y-4">
-                    <div class="hero-feature-item flex items-start gap-4 bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10 hover:bg-white/10 hover:translate-x-2 transition-all duration-300 group">
-                        <div class="feature-icon w-10 h-10 flex-shrink-0 text-white">
-                            <svg class="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                            </svg>
+                    <h1 class="text-3xl font-bold gradient-text mb-3">
+                        Bergabung dengan KelasOnline
+                    </h1>
+                    <p class="text-gray-600 text-base mb-6">
+                        Mulai perjalanan belajar Anda bersama ribuan mahasiswa lainnya
+                    </p>
+                    
+                    <div class="space-y-3 text-left max-w-md mx-auto">
+                        <div class="flex items-center gap-3 p-3 bg-white/80 rounded-2xl">
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-500 rounded-xl flex items-center justify-center text-white text-xl">
+                                ✓
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">Gratis & Mudah</p>
+                                <p class="text-sm text-gray-600">Daftar tanpa biaya apapun</p>
+                            </div>
                         </div>
-                        <div class="feature-text flex-1">
-                            <strong class="block text-lg font-semibold text-white mb-1 group-hover:text-blue-200 transition-colors">
-                                Kelola Kelas & Materi
-                            </strong>
-                            <p class="text-sm text-white/80">Upload PDF, video, buat tugas dengan mudah</p>
+                        
+                        <div class="flex items-center gap-4 p-4 bg-white/80 rounded-2xl">
+                            <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-500 rounded-xl flex items-center justify-center text-white text-xl">
+                                ✓
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">Akses 24/7</p>
+                                <p class="text-sm text-gray-600">Belajar kapan saja, dimana saja</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="hero-feature-item flex items-start gap-4 bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10 hover:bg-white/10 hover:translate-x-2 transition-all duration-300 group">
-                        <div class="feature-icon w-10 h-10 flex-shrink-0 text-white">
-                            <svg class="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                        </div>
-                        <div class="feature-text flex-1">
-                            <strong class="block text-lg font-semibold text-white mb-1 group-hover:text-blue-200 transition-colors">
-                                Submit Tugas & Nilai
-                            </strong>
-                            <p class="text-sm text-white/80">Mahasiswa submit, dosen beri nilai & feedback</p>
-                        </div>
-                    </div>
-                    <div class="hero-feature-item flex items-start gap-4 bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10 hover:bg-white/10 hover:translate-x-2 transition-all duration-300 group">
-                        <div class="feature-icon w-10 h-10 flex-shrink-0 text-white">
-                            <svg class="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="18" y1="20" x2="18" y2="10"></line>
-                                <line x1="12" y1="20" x2="12" y2="4"></line>
-                                <line x1="6" y1="20" x2="6" y2="14"></line>
-                            </svg>
-                        </div>
-                        <div class="feature-text flex-1">
-                            <strong class="block text-lg font-semibold text-white mb-1 group-hover:text-blue-200 transition-colors">
-                                Dashboard & Statistik
-                            </strong>
-                            <p class="text-sm text-white/80">Pantau progress dengan dashboard lengkap</p>
-                        </div>
-                    </div>
-                    <div class="hero-feature-item flex items-start gap-4 bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10 hover:bg-white/10 hover:translate-x-2 transition-all duration-300 group">
-                        <div class="feature-icon w-10 h-10 flex-shrink-0 text-white">
-                            <svg class="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                            </svg>
-                        </div>
-                        <div class="feature-text flex-1">
-                            <strong class="block text-lg font-semibold text-white mb-1 group-hover:text-blue-200 transition-colors">
-                                Keamanan Terjamin
-                            </strong>
-                            <p class="text-sm text-white/80">Data terlindungi dengan sistem terintegrasi</p>
+                        
+                        <div class="flex items-center gap-4 p-4 bg-white/80 rounded-2xl">
+                            <div class="w-12 h-12 bg-gradient-to-br from-pink-400 to-pink-500 rounded-xl flex items-center justify-center text-white text-xl">
+                                ✓
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">Sertifikat Digital</p>
+                                <p class="text-sm text-gray-600">Dapatkan sertifikat resmi</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Right Side - Form Section (Putih) -->
-        <div class="auth-form-side flex-1 bg-white p-8 lg:p-12 flex items-center justify-center overflow-y-auto">
-            <div class="auth-form-container w-full max-w-md animate-slide-in">
-                <!-- Back Link -->
-                <a href="index.html" class="auth-back-link inline-flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium text-sm mb-8 transition-all hover:-translate-x-1">
-                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M19 12H5M12 19l-7-7 7-7"/>
-                    </svg>
-                    Kembali ke Beranda
-                </a>
-
-                <!-- Header -->
-                <div class="auth-form-header mb-8">
-                    <h1 class="form-title text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
-                        Daftar Akun Baru
-                    </h1>
-                    <p class="form-subtitle text-gray-600 text-base">
-                        Bergabunglah dengan platform e-learning kami
-                    </p>
+            <!-- Right Side - Register Form -->
+            <div class="card-3d rounded-3xl p-6 md:p-8">
+                <div class="mb-5">
+                    <div class="inline-block px-3 py-1 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full mb-3">
+                        <span class="text-xs font-semibold gradient-text">UNIVERSITAS LAMPUNG</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-1">Buat Akun Baru 🚀</h2>
+                    <p class="text-gray-500 text-sm">Lengkapi data diri Anda untuk mendaftar</p>
                 </div>
 
-                <!-- Alert Container -->
-                <div id="alertContainer" class="mb-4"></div>
+                <form action="../backend/auth/register.php" method="POST" class="space-y-3.5">
+                    <!-- Role Selection (First) -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Daftar sebagai</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="relative">
+                                <input type="radio" name="role" value="mahasiswa" class="peer sr-only" checked>
+                                <div class="input-field cursor-pointer p-3 rounded-xl text-center peer-checked:border-purple-600 peer-checked:bg-gradient-to-r peer-checked:from-purple-50 peer-checked:to-pink-50">
+                                    <i class="fas fa-user-graduate text-xl mb-1.5 text-purple-600"></i>
+                                    <p class="font-semibold text-xs">Mahasiswa</p>
+                                </div>
+                            </label>
+                            <label class="relative">
+                                <input type="radio" name="role" value="dosen" class="peer sr-only">
+                                <div class="input-field cursor-pointer p-3 rounded-xl text-center peer-checked:border-purple-600 peer-checked:bg-gradient-to-r peer-checked:from-purple-50 peer-checked:to-pink-50">
+                                    <i class="fas fa-chalkboard-teacher text-xl mb-1.5 text-purple-600"></i>
+                                    <p class="font-semibold text-xs">Dosen</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
 
-                <!-- Form -->
-                <form id="registerForm" novalidate class="space-y-5">
-                    <!-- Nama Lengkap -->
-                    <div class="form-group">
-                        <label for="nama" class="form-label block text-sm font-semibold text-gray-700 mb-2">
-                            Nama Lengkap
-                        </label>
+                    <!-- Full Name -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama Lengkap</label>
                         <div class="relative">
-                            <span class="form-icon absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="12" cy="7" r="4"></circle>
-                                </svg>
-                            </span>
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-user text-gray-400"></i>
+                            </div>
                             <input 
                                 type="text" 
-                                id="nama" 
                                 name="nama" 
-                                class="form-input w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-gray-900 placeholder-gray-400" 
+                                required
+                                class="input-field w-full pl-12 pr-4 py-3 rounded-xl bg-gray-50"
                                 placeholder="Masukkan nama lengkap"
-                                required
-                            >
-                        </div>
-                        <div class="form-error hidden text-red-600 text-sm mt-1.5 flex items-center gap-1" id="namaError">
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="8" x2="12" y2="12"></line>
-                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                            </svg>
-                            Nama lengkap harus diisi
-                        </div>
-                    </div>
-
-                    <!-- Email -->
-                    <div class="form-group">
-                        <label for="email" class="form-label block text-sm font-semibold text-gray-700 mb-2">
-                            Email
-                        </label>
-                        <div class="relative">
-                            <span class="form-icon absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                    <polyline points="22,6 12,13 2,6"></polyline>
-                                </svg>
-                            </span>
-                            <input 
-                                type="email" 
-                                id="email" 
-                                name="email" 
-                                class="form-input w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-gray-900 placeholder-gray-400" 
-                                placeholder="nama@email.com"
-                                required
-                            >
-                        </div>
-                        <div class="form-error hidden text-red-600 text-sm mt-1.5 flex items-center gap-1" id="emailError">
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="8" x2="12" y2="12"></line>
-                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                            </svg>
-                            Email tidak valid
-                        </div>
-                    </div>
-
-                    <!-- Role Selection -->
-                    <div class="form-group">
-                        <label class="form-label block text-sm font-semibold text-gray-700 mb-3">
-                            Daftar Sebagai
-                        </label>
-                        <div class="radio-group grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <label class="radio-option cursor-pointer group" id="radioMahasiswa">
-                                <input type="radio" name="role" value="mahasiswa" checked class="hidden peer">
-                                <div class="radio-content p-4 border-2 border-gray-200 rounded-lg hover:border-blue-400 peer-checked:border-blue-600 peer-checked:bg-blue-50 transition-all hover:shadow-md">
-                                    <span class="radio-badge inline-block px-3 py-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold rounded-full mb-2 shadow-sm">
-                                        MAHASISWA
-                                    </span>
-                                    <strong class="block text-base font-semibold text-gray-900 mb-1">Student Account</strong>
-                                    <p class="text-sm text-gray-600">Untuk mengikuti kelas dan mengakses materi</p>
-                                </div>
-                            </label>
-                            <label class="radio-option cursor-pointer group" id="radioDosen">
-                                <input type="radio" name="role" value="dosen" class="hidden peer">
-                                <div class="radio-content p-4 border-2 border-gray-200 rounded-lg hover:border-green-400 peer-checked:border-green-600 peer-checked:bg-green-50 transition-all hover:shadow-md">
-                                    <span class="radio-badge inline-block px-3 py-1 bg-gradient-to-r from-green-500 to-green-600 text-white text-xs font-bold rounded-full mb-2 shadow-sm">
-                                        DOSEN
-                                    </span>
-                                    <strong class="block text-base font-semibold text-gray-900 mb-1">Lecturer Account</strong>
-                                    <p class="text-sm text-gray-600">Untuk membuat dan mengelola kelas</p>
-                                </div>
-                            </label>
+                            />
                         </div>
                     </div>
 
                     <!-- NPM/NIDN -->
-                    <div class="form-group">
-                        <label for="npm_nidn" class="form-label block text-sm font-semibold text-gray-700 mb-2" id="npmNidnLabel">NPM</label>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">NPM / NIDN</label>
                         <div class="relative">
-                            <span class="form-icon absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" id="npmNidnIcon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
-                                </svg>
-                            </span>
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-id-card text-gray-400"></i>
+                            </div>
                             <input 
                                 type="text" 
-                                id="npm_nidn" 
                                 name="npm_nidn" 
-                                class="form-input w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-gray-900 placeholder-gray-400" 
-                                placeholder="Masukkan NPM"
                                 required
-                            >
+                                class="input-field w-full pl-12 pr-4 py-3 rounded-xl bg-gray-50"
+                                placeholder="Masukkan NPM atau NIDN"
+                            />
                         </div>
-                        <div class="form-error hidden text-red-600 text-sm mt-1.5 flex items-center gap-1" id="npmNidnError">
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="8" x2="12" y2="12"></line>
-                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                            </svg>
-                            NPM harus diisi
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Email</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-envelope text-gray-400"></i>
+                            </div>
+                            <input 
+                                type="email" 
+                                name="email" 
+                                required
+                                class="input-field w-full pl-12 pr-4 py-3 rounded-xl bg-gray-50"
+                                placeholder="nama@email.com"
+                            />
                         </div>
                     </div>
 
                     <!-- Password -->
-                    <div class="form-group">
-                        <label for="password" class="form-label block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Password</label>
                         <div class="relative">
-                            <span class="form-icon absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                                </svg>
-                            </span>
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
                             <input 
                                 type="password" 
-                                id="password" 
                                 name="password" 
-                                class="form-input w-full pl-12 pr-12 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-gray-900 placeholder-gray-400" 
-                                placeholder="Minimal 8 karakter"
+                                id="password"
                                 required
+                                class="input-field w-full pl-12 pr-12 py-3 rounded-xl bg-gray-50"
+                                placeholder="Minimal 8 karakter"
+                            />
+                            <button 
+                                type="button" 
+                                onclick="togglePassword()"
+                                class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600"
                             >
-                            <button type="button" class="form-toggle-password absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 w-5 h-5 transition-colors" id="togglePassword">
-                                <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                </svg>
-                                <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
-                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
-                                    <line x1="1" y1="1" x2="23" y2="23"></line>
-                                </svg>
+                                <i class="fas fa-eye" id="toggleIcon"></i>
                             </button>
-                        </div>
-                        <div class="form-error hidden text-red-600 text-sm mt-1.5 flex items-center gap-1" id="passwordError">
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="8" x2="12" y2="12"></line>
-                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                            </svg>
-                            Password minimal 8 karakter
-                        </div>
-                        
-                        <!-- Password Strength -->
-                        <div class="password-strength mt-2" id="passwordStrength" style="display: none;">
-                            <div class="strength-bars flex gap-1.5 mb-2">
-                                <div class="strength-bar h-1.5 flex-1 bg-gray-200 rounded-full transition-all"></div>
-                                <div class="strength-bar h-1.5 flex-1 bg-gray-200 rounded-full transition-all"></div>
-                                <div class="strength-bar h-1.5 flex-1 bg-gray-200 rounded-full transition-all"></div>
-                                <div class="strength-bar h-1.5 flex-1 bg-gray-200 rounded-full transition-all"></div>
-                            </div>
-                            <div class="strength-text text-sm font-medium" id="strengthText"></div>
                         </div>
                     </div>
 
                     <!-- Confirm Password -->
-                    <div class="form-group">
-                        <label for="confirmPassword" class="form-label block text-sm font-semibold text-gray-700 mb-2">Konfirmasi Password</label>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Konfirmasi Password</label>
                         <div class="relative">
-                            <span class="form-icon absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                                </svg>
-                            </span>
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
                             <input 
                                 type="password" 
-                                id="confirmPassword" 
-                                name="confirmPassword" 
-                                class="form-input w-full pl-12 pr-12 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-gray-900 placeholder-gray-400" 
-                                placeholder="Ketik ulang password"
+                                name="confirm_password" 
+                                id="confirmPassword"
                                 required
+                                class="input-field w-full pl-12 pr-12 py-3 rounded-xl bg-gray-50"
+                                placeholder="Ulangi password"
+                            />
+                            <button 
+                                type="button" 
+                                onclick="toggleConfirmPassword()"
+                                class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600"
                             >
-                            <button type="button" class="form-toggle-password absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 w-5 h-5 transition-colors" id="toggleConfirmPassword">
-                                <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                </svg>
-                                <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
-                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
-                                    <line x1="1" y1="1" x2="23" y2="23"></line>
-                                </svg>
+                                <i class="fas fa-eye" id="toggleConfirmIcon"></i>
                             </button>
-                        </div>
-                        <div class="form-error hidden text-red-600 text-sm mt-1.5 flex items-center gap-1" id="confirmPasswordError">
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="8" x2="12" y2="12"></line>
-                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                            </svg>
-                            Password tidak cocok
                         </div>
                     </div>
 
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3.5 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none" id="registerBtn">
-                        <span class="btn-text inline-flex items-center gap-2">
-                            Daftar Sekarang
-                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M5 12h14M12 5l7 7-7 7"/>
-                            </svg>
-                        </span>
-                        <span class="btn-loader inline-flex items-center gap-2" style="display: none;">
-                            <svg class="animate-spin w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
-                                <path d="M12 2a10 10 0 0 1 10 10" stroke-opacity="1"></path>
-                            </svg>
-                            Memproses...
-                        </span>
-                    </button>
-                </form>
+                    <!-- Terms & Conditions -->
+                    <div class="flex items-start">
+                        <input type="checkbox" required class="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500 mt-1">
+                        <label class="ml-2 text-sm text-gray-600">
+                            Saya menyetujui <a href="#" class="gradient-text font-semibold hover:underline">Syarat & Ketentuan</a> 
+                            dan <a href="#" class="gradient-text font-semibold hover:underline">Kebijakan Privasi</a>
+                        </label>
+                    </div>
 
-                <!-- Footer -->
-                <div class="auth-form-footer text-center mt-8 pt-6 border-t border-gray-200">
-                    <p class="text-gray-600">
+                    <!-- Register Button -->
+                    <button 
+                        type="submit"
+                        class="btn-gradient w-full py-4 rounded-xl text-white font-bold text-lg"
+                    >
+                        Daftar Sekarang <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+
+                    <!-- Login Link -->
+                    <p class="text-center text-gray-600 text-sm">
                         Sudah punya akun? 
-                        <a href="login.html" class="form-link text-blue-600 hover:text-blue-700 font-semibold hover:underline transition-colors">
-                            Masuk
-                        </a>
+                        <a href="login.html" class="font-semibold gradient-text hover:underline">Masuk di sini</a>
                     </p>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <script src="../assets/js/validation.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('registerForm');
-            const namaInput = document.getElementById('nama');
-            const emailInput = document.getElementById('email');
+        function togglePassword() {
             const passwordInput = document.getElementById('password');
-            const confirmPasswordInput = document.getElementById('confirmPassword');
-            const npmNidnInput = document.getElementById('npm_nidn');
-            const alertContainer = document.getElementById('alertContainer');
-
-            // Role Selection
-            const radioMahasiswa = document.getElementById('radioMahasiswa');
-            const radioDosen = document.getElementById('radioDosen');
-            const npmNidnLabel = document.getElementById('npmNidnLabel');
-            const npmNidnIcon = document.getElementById('npmNidnIcon');
-
-            // Toggle Password Visibility
-            document.getElementById('togglePassword').addEventListener('click', function() {
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                const eyeOpen = this.querySelector('.eye-open');
-                const eyeClosed = this.querySelector('.eye-closed');
-                if (type === 'password') {
-                    eyeOpen.style.display = 'block';
-                    eyeClosed.style.display = 'none';
-                } else {
-                    eyeOpen.style.display = 'none';
-                    eyeClosed.style.display = 'block';
-                }
-            });
-
-            document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
-                const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                confirmPasswordInput.setAttribute('type', type);
-                const eyeOpen = this.querySelector('.eye-open');
-                const eyeClosed = this.querySelector('.eye-closed');
-                if (type === 'password') {
-                    eyeOpen.style.display = 'block';
-                    eyeClosed.style.display = 'none';
-                } else {
-                    eyeOpen.style.display = 'none';
-                    eyeClosed.style.display = 'block';
-                }
-            });
-
-            // Role Card Selection
-            radioMahasiswa.addEventListener('click', function() {
-                radioMahasiswa.classList.add('active');
-                radioDosen.classList.remove('active');
-                npmNidnLabel.textContent = 'NPM';
-                npmNidnInput.placeholder = 'Masukkan NPM';
-                document.getElementById('npmNidnError').textContent = 'NPM harus diisi';
-            });
-
-            radioDosen.addEventListener('click', function() {
-                radioDosen.classList.add('active');
-                radioMahasiswa.classList.remove('active');
-                npmNidnLabel.textContent = 'NIDN';
-                npmNidnInput.placeholder = 'Masukkan NIDN';
-                document.getElementById('npmNidnError').textContent = 'NIDN harus diisi';
-            });
-
-            // Password Strength Indicator
-            passwordInput.addEventListener('input', function() {
-                const password = this.value;
-                const strengthIndicator = document.getElementById('passwordStrength');
-                const strengthText = document.getElementById('strengthText');
-                const bars = document.querySelectorAll('.strength-bar');
-
-                if (password.length === 0) {
-                    strengthIndicator.style.display = 'none';
-                    return;
-                }
-
-                strengthIndicator.style.display = 'block';
-
-                let strength = 0;
-                if (password.length >= 8) strength++;
-                if (password.length >= 12) strength++;
-                if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
-                if (/\d/.test(password)) strength++;
-                if (/[^a-zA-Z\d]/.test(password)) strength++;
-
-                // Reset all bars
-                bars.forEach(bar => {
-                    bar.classList.remove('active', 'weak', 'medium', 'strong');
-                });
-
-                // Update bars based on strength with Tailwind classes
-                if (strength <= 2) {
-                    bars[0].classList.add('bg-red-500');
-                    strengthText.textContent = 'Lemah';
-                    strengthText.className = 'strength-text text-sm font-medium text-red-600';
-                } else if (strength <= 3) {
-                    bars[0].classList.add('bg-yellow-500');
-                    bars[1].classList.add('bg-yellow-500');
-                    strengthText.textContent = 'Sedang';
-                    strengthText.className = 'strength-text text-sm font-medium text-yellow-600';
-                } else if (strength <= 4) {
-                    bars[0].classList.add('bg-blue-500');
-                    bars[1].classList.add('bg-blue-500');
-                    bars[2].classList.add('bg-blue-500');
-                    strengthText.textContent = 'Kuat';
-                    strengthText.className = 'strength-text text-sm font-medium text-blue-600';
-                } else {
-                    bars.forEach(bar => bar.classList.add('bg-green-500'));
-                    strengthText.textContent = 'Sangat Kuat';
-                    strengthText.className = 'strength-text text-sm font-medium text-green-600';
-                }
-            });
-
-            // Validation Functions
-            function showError(input, message) {
-                const errorElement = document.getElementById(input.id + 'Error');
-                const errorIcon = errorElement.querySelector('svg + *') || errorElement.childNodes[errorElement.childNodes.length - 1];
-                if (errorIcon && errorIcon.nodeType === 3) {
-                    errorIcon.textContent = message;
-                } else {
-                    errorElement.innerHTML = `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="8" x2="12" y2="12"></line>
-                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                    </svg>${message}`;
-                }
-                errorElement.classList.remove('hidden');
-                input.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/10');
-                input.classList.remove('border-green-500', 'focus:border-green-500', 'focus:ring-green-500/10');
+            const toggleIcon = document.getElementById('toggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
             }
+        }
 
-            function showSuccess(input) {
-                const errorElement = document.getElementById(input.id + 'Error');
-                errorElement.classList.add('hidden');
-                input.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/10');
-                input.classList.add('border-green-500', 'focus:border-green-500', 'focus:ring-green-500/10');
+        function toggleConfirmPassword() {
+            const passwordInput = document.getElementById('confirmPassword');
+            const toggleIcon = document.getElementById('toggleConfirmIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
             }
-
-            function validateNama() {
-                const nama = namaInput.value.trim();
-                if (nama === '') {
-                    showError(namaInput, 'Nama lengkap harus diisi');
-                    return false;
-                } else if (nama.length < 3) {
-                    showError(namaInput, 'Nama minimal 3 karakter');
-                    return false;
-                } else {
-                    showSuccess(namaInput);
-                    return true;
-                }
-            }
-
-            function validateEmail() {
-                const email = emailInput.value.trim();
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                
-                if (email === '') {
-                    showError(emailInput, 'Email harus diisi');
-                    return false;
-                } else if (!emailRegex.test(email)) {
-                    showError(emailInput, 'Format email tidak valid');
-                    return false;
-                } else {
-                    showSuccess(emailInput);
-                    return true;
-                }
-            }
-
-            function validateNpmNidn() {
-                const value = npmNidnInput.value.trim();
-                const role = document.querySelector('input[name="role"]:checked').value;
-                
-                if (value === '') {
-                    showError(npmNidnInput, role === 'mahasiswa' ? 'NPM harus diisi' : 'NIDN harus diisi');
-                    return false;
-                } else if (value.length < 5) {
-                    showError(npmNidnInput, role === 'mahasiswa' ? 'NPM minimal 5 karakter' : 'NIDN minimal 5 karakter');
-                    return false;
-                } else {
-                    showSuccess(npmNidnInput);
-                    return true;
-                }
-            }
-
-            function validatePassword() {
-                const password = passwordInput.value;
-                
-                if (password === '') {
-                    showError(passwordInput, 'Password harus diisi');
-                    return false;
-                } else if (password.length < 8) {
-                    showError(passwordInput, 'Password minimal 8 karakter');
-                    return false;
-                } else {
-                    showSuccess(passwordInput);
-                    return true;
-                }
-            }
-
-            function validateConfirmPassword() {
-                const password = passwordInput.value;
-                const confirmPassword = confirmPasswordInput.value;
-                
-                if (confirmPassword === '') {
-                    showError(confirmPasswordInput, 'Konfirmasi password harus diisi');
-                    return false;
-                } else if (password !== confirmPassword) {
-                    showError(confirmPasswordInput, 'Password tidak cocok');
-                    return false;
-                } else {
-                    showSuccess(confirmPasswordInput);
-                    return true;
-                }
-            }
-
-            // Real-time Validation
-            namaInput.addEventListener('blur', validateNama);
-            emailInput.addEventListener('blur', validateEmail);
-            npmNidnInput.addEventListener('blur', validateNpmNidn);
-            passwordInput.addEventListener('blur', validatePassword);
-            confirmPasswordInput.addEventListener('blur', validateConfirmPassword);
-
-            // Form Submit
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                // Validate all fields
-                const isNamaValid = validateNama();
-                const isEmailValid = validateEmail();
-                const isNpmNidnValid = validateNpmNidn();
-                const isPasswordValid = validatePassword();
-                const isConfirmPasswordValid = validateConfirmPassword();
-
-                if (isNamaValid && isEmailValid && isNpmNidnValid && isPasswordValid && isConfirmPasswordValid) {
-                    // Show loading state
-                    const registerBtn = document.getElementById('registerBtn');
-                    const btnText = registerBtn.querySelector('.btn-text');
-                    const btnLoader = registerBtn.querySelector('.btn-loader');
-                    
-                    registerBtn.disabled = true;
-                    btnText.style.display = 'none';
-                    btnLoader.style.display = 'inline-flex';
-
-                    // Simulate API call
-                    setTimeout(() => {
-                        // Show success alert with Tailwind
-                        alertContainer.innerHTML = `
-                            <div class="alert bg-green-50 border-2 border-green-500 rounded-lg p-4 flex items-start gap-3 animate-slide-in">
-                                <svg class="w-6 h-6 text-green-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <path d="M12 6v6m0 4h.01"></path>
-                                </svg>
-                                <div class="flex-1">
-                                    <strong class="block text-green-900 font-semibold mb-1">Berhasil!</strong>
-                                    <p class="text-green-700 text-sm">Akun Anda telah terdaftar. Redirecting...</p>
-                                </div>
-                            </div>
-                        `;
-                        alertContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-                        // Redirect after success
-                        setTimeout(() => {
-                            window.location.href = 'login.html';
-                        }, 1500);
-                    }, 1000);
-                } else {
-                    // Show error alert with Tailwind
-                    alertContainer.innerHTML = `
-                        <div class="alert bg-red-50 border-2 border-red-500 rounded-lg p-4 flex items-start gap-3 animate-slide-in">
-                            <svg class="w-6 h-6 text-red-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="15" y1="9" x2="9" y2="15"></line>
-                                <line x1="9" y1="9" x2="15" y2="15"></line>
-                            </svg>
-                            <div class="flex-1">
-                                <strong class="block text-red-900 font-semibold mb-1">Oops!</strong>
-                                <p class="text-red-700 text-sm">Mohon periksa kembali data yang Anda masukkan.</p>
-                            </div>
-                        </div>
-                    `;
-                    alertContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }
-            });
-        });
+        }
     </script>
 </body>
 </html>
