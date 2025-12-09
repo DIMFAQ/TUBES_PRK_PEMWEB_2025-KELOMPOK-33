@@ -3,16 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Login — Alda Studio</title>
+  <title>Login — TUBES PPW 33</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body class="bg-gray-50 min-h-screen flex items-center justify-center">
   <div class="max-w-md w-full p-8">
     <div class="bg-white p-8 rounded-2xl shadow">
-      <h2 class="text-2xl font-semibold">Masuk</h2>
-      <p class="text-sm text-muted mt-1">Masuk dengan akun Anda</p>
+      <h2 class="text-2xl font-semibold">Login</h2>
+      <p class="text-sm text-muted mt-1">Pilih tipe akun Anda</p>
       <form id="loginForm" class="mt-6 space-y-4" onsubmit="return false;">
+        <div>
+          <label class="block text-sm">Login Sebagai</label>
+          <select id="loginRole" class="w-full p-3 border rounded-lg">
+            <option value="warga">Warga</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
         <div>
           <label class="block text-sm">Email</label>
           <input id="loginEmail" type="email" required class="w-full p-3 border rounded-lg" placeholder="email@contoh.com">
@@ -22,7 +29,7 @@
           <input id="loginPassword" type="password" required class="w-full p-3 border rounded-lg" placeholder="••••••">
         </div>
         <div class="flex items-center justify-between">
-          <button id="loginBtn" class="px-4 py-2 bg-emerald-600 text-white rounded-lg">Masuk</button>
+          <button id="loginBtn" class="px-4 py-2 bg-emerald-600 text-white rounded-lg">Login</button>
           <a href="register.html" class="text-sm text-blue-600">Belum punya akun? Daftar</a>
         </div>
         <div id="loginMsg" class="text-sm text-red-600"></div>
@@ -39,6 +46,7 @@
     document.getElementById('loginBtn').addEventListener('click', async () => {
       const email = document.getElementById('loginEmail').value.trim();
       const password = document.getElementById('loginPassword').value;
+      const loginRole = document.getElementById('loginRole').value;
       try {
         const res = await fetch('login.php', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -47,6 +55,11 @@
         const data = await res.json();
         if (!res.ok) {
           showMsg(document.getElementById('loginMsg'), data.error || JSON.stringify(data));
+          return;
+        }
+        // Check if user role matches selected role
+        if (data.user.role !== loginRole) {
+          showMsg(document.getElementById('loginMsg'), 'Akun ini bukan ' + loginRole + '. Pilih tipe akun yang sesuai.');
           return;
         }
         localStorage.setItem('token', data.token);
