@@ -29,21 +29,21 @@
             transition: all 0.3s ease;
         }
         .drag-area.drag-over {
-            border-color: #1e40af;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(30, 64, 175, 0.1) 100%);
+            border-color: #ec4899;
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%);
             transform: scale(1.02);
         }
         
         /* Progress Bar */
         .progress-bar-container {
             height: 4px;
-            background: rgba(59, 130, 246, 0.2);
+            background: rgba(236, 72, 153, 0.2);
             border-radius: 2px;
             overflow: hidden;
         }
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, #3b82f6 0%, #1e40af 100%);
+            background: linear-gradient(90deg, #ec4899 0%, #a855f7 100%);
             transition: width 0.3s ease;
         }
         
@@ -58,36 +58,36 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
+<body class="bg-gradient-to-br from-pink-200 via-purple-200 to-pink-300 min-h-screen">
 
     <!-- Navbar -->
-    <nav class="bg-white/80 backdrop-blur-md shadow-lg border-b border-blue-100 sticky top-0 z-50">
+    <nav class="bg-white/95 backdrop-blur-lg border-b border-pink-200 sticky top-0 z-50 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo -->
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-blue-950 via-blue-800 to-blue-600 rounded-lg flex items-center justify-center shadow-lg">
+                    <div class="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                         </svg>
                     </div>
                     <div>
-                        <h1 class="text-lg font-bold bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-transparent">KelasOnline</h1>
-                        <p class="text-xs text-gray-500">Kelola Materi</p>
+                        <h1 class="text-lg font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">KelasOnline</h1>
+                        <p class="text-xs text-gray-600">Kelola Materi</p>
                     </div>
                 </div>
 
                 <!-- Right Menu -->
                 <div class="flex items-center gap-4">
-                    <button class="p-2 hover:bg-blue-50 rounded-lg transition-colors">
-                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button class="p-2 text-gray-600 hover:text-pink-600 hover:bg-pink-50 rounded-xl transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                         </svg>
                     </button>
                     
                     <div class="relative">
-                        <button class="w-10 h-10 bg-gradient-to-br from-blue-800 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold shadow-lg hover:shadow-xl transition-shadow">
-                            D
+                        <button class="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg hover:shadow-xl transition-shadow">
+                            BS
                         </button>
                     </div>
                 </div>
@@ -111,9 +111,9 @@
                         Pemrograman Web 2025
                     </h2>
                 </div>
-                <button onclick="openTambahMateriModal()" class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-800 to-blue-600 hover:from-blue-900 hover:to-blue-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
+                <button onclick="openTambahMateriModal()" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path>
                     </svg>
                     Tambah Materi
                 </button>
@@ -123,14 +123,14 @@
 
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8 animate-slide-in">
-            <div class="bg-white rounded-xl p-6 shadow-lg border-2 border-blue-100 hover:shadow-xl transition-shadow">
+            <div class="bg-white rounded-xl p-6 shadow-lg border-2 border-pink-100 hover:shadow-xl transition-shadow">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-gray-500 text-sm font-medium mb-1">Total Materi</p>
-                        <h3 class="text-3xl font-bold text-blue-600">24</h3>
+                        <p class="text-gray-600 text-sm font-medium mb-1">Total Materi</p>
+                        <h3 class="text-3xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">24</h3>
                     </div>
-                    <div class="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center shadow-sm">
-                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-10 h-10 bg-gradient-to-br from-pink-100 to-purple-200 rounded-lg flex items-center justify-center shadow-sm">
+                        <svg class="w-5 h-5 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
                     </div>
@@ -140,7 +140,7 @@
             <div class="bg-white rounded-xl p-6 shadow-lg border-2 border-purple-100 hover:shadow-xl transition-shadow">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-gray-500 text-sm font-medium mb-1">PDF Files</p>
+                        <p class="text-gray-600 text-sm font-medium mb-1">PDF Files</p>
                         <h3 class="text-3xl font-bold text-purple-600">18</h3>
                     </div>
                     <div class="w-10 h-10 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center shadow-sm">
@@ -154,7 +154,7 @@
             <div class="bg-white rounded-xl p-6 shadow-lg border-2 border-red-100 hover:shadow-xl transition-shadow">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-gray-500 text-sm font-medium mb-1">Video Links</p>
+                        <p class="text-gray-600 text-sm font-medium mb-1">Video Links</p>
                         <h3 class="text-3xl font-bold text-red-600">6</h3>
                     </div>
                     <div class="w-10 h-10 bg-gradient-to-br from-red-100 to-red-200 rounded-lg flex items-center justify-center shadow-sm">
@@ -168,7 +168,7 @@
             <div class="bg-white rounded-xl p-6 shadow-lg border-2 border-green-100 hover:shadow-xl transition-shadow">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-gray-500 text-sm font-medium mb-1">Pertemuan</p>
+                        <p class="text-gray-600 text-sm font-medium mb-1">Pertemuan</p>
                         <h3 class="text-3xl font-bold text-green-600">14</h3>
                     </div>
                     <div class="w-10 h-10 bg-gradient-to-br from-green-100 to-green-200 rounded-lg flex items-center justify-center shadow-sm">
@@ -209,19 +209,19 @@
         <div class="space-y-6">
             
             <!-- Pertemuan 1 -->
-            <div class="bg-white rounded-xl shadow-lg border-2 border-blue-100 overflow-hidden animate-fade-in">
-                <div class="bg-gradient-to-r from-blue-50 to-white px-6 py-4 border-b-2 border-blue-100">
+            <div class="bg-white rounded-xl shadow-lg border-2 border-pink-100 overflow-hidden animate-fade-in">
+                <div class="bg-gradient-to-r from-pink-50 to-purple-50 px-6 py-4 border-b-2 border-pink-100">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-gradient-to-br from-blue-800 to-blue-600 rounded-lg flex items-center justify-center text-white font-bold shadow-md">
+                            <div class="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold shadow-md">
                                 1
                             </div>
                             <div>
                                 <h3 class="text-lg font-bold text-gray-800">Pertemuan 1</h3>
-                                <p class="text-sm text-gray-500">3 Materi • 15 Sep 2024</p>
+                                <p class="text-sm text-gray-600">3 Materi • 15 Sep 2024</p>
                             </div>
                         </div>
-                        <button class="text-blue-600 hover:text-blue-700 font-semibold text-sm">
+                        <button class="text-pink-600 hover:text-purple-700 font-semibold text-sm">
                             Lihat Semua
                         </button>
                     </div>
@@ -229,7 +229,7 @@
 
                 <div class="divide-y divide-gray-100">
                     <!-- Materi Item 1 - PDF -->
-                    <div class="p-6 hover:bg-blue-50/50 transition-colors group">
+                    <div class="p-6 hover:bg-pink-50/50 transition-colors group">
                         <div class="flex items-start gap-4">
                             <div class="w-10 h-10 bg-gradient-to-br from-red-100 to-red-200 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm group-hover:shadow-md transition-shadow">
                                 <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -255,7 +255,7 @@
                                 </div>
                             </div>
                             <div class="flex gap-2">
-                                <button onclick="editMateri(1)" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit">
+                                <button onclick="editMateri(1)" class="p-2 text-pink-600 hover:bg-pink-50 rounded-lg transition-colors" title="Edit">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                     </svg>
@@ -270,7 +270,7 @@
                     </div>
 
                     <!-- Materi Item 2 - Video -->
-                    <div class="p-6 hover:bg-blue-50/50 transition-colors group">
+                    <div class="p-6 hover:bg-pink-50/50 transition-colors group">
                         <div class="flex items-start gap-4">
                             <div class="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm group-hover:shadow-md transition-shadow">
                                 <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -296,7 +296,7 @@
                                 </div>
                             </div>
                             <div class="flex gap-2">
-                                <button onclick="editMateri(2)" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit">
+                                <button onclick="editMateri(2)" class="p-2 text-pink-600 hover:bg-pink-50 rounded-lg transition-colors" title="Edit">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                     </svg>
@@ -311,7 +311,7 @@
                     </div>
 
                     <!-- Materi Item 3 - PDF -->
-                    <div class="p-6 hover:bg-blue-50/50 transition-colors group">
+                    <div class="p-6 hover:bg-pink-50/50 transition-colors group">
                         <div class="flex items-start gap-4">
                             <div class="w-10 h-10 bg-gradient-to-br from-red-100 to-red-200 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm group-hover:shadow-md transition-shadow">
                                 <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -337,7 +337,7 @@
                                 </div>
                             </div>
                             <div class="flex gap-2">
-                                <button onclick="editMateri(3)" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit">
+                                <button onclick="editMateri(3)" class="p-2 text-pink-600 hover:bg-pink-50 rounded-lg transition-colors" title="Edit">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                     </svg>
@@ -354,19 +354,19 @@
             </div>
 
             <!-- Pertemuan 2 -->
-            <div class="bg-white rounded-xl shadow-lg border-2 border-blue-100 overflow-hidden animate-fade-in" style="animation-delay: 0.1s;">
-                <div class="bg-gradient-to-r from-blue-50 to-white px-6 py-4 border-b-2 border-blue-100">
+            <div class="bg-white rounded-xl shadow-lg border-2 border-purple-100 overflow-hidden animate-fade-in" style="animation-delay: 0.1s;">
+                <div class="bg-gradient-to-r from-purple-50 to-pink-50 px-6 py-4 border-b-2 border-purple-100">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-gradient-to-br from-blue-800 to-blue-600 rounded-lg flex items-center justify-center text-white font-bold shadow-md">
+                            <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center text-white font-bold shadow-md">
                                 2
                             </div>
                             <div>
                                 <h3 class="text-lg font-bold text-gray-800">Pertemuan 2</h3>
-                                <p class="text-sm text-gray-500">2 Materi • 22 Sep 2024</p>
+                                <p class="text-sm text-gray-600">2 Materi • 22 Sep 2024</p>
                             </div>
                         </div>
-                        <button class="text-blue-600 hover:text-blue-700 font-semibold text-sm">
+                        <button class="text-purple-600 hover:text-pink-700 font-semibold text-sm">
                             Lihat Semua
                         </button>
                     </div>
@@ -374,7 +374,7 @@
 
                 <div class="divide-y divide-gray-100">
                     <!-- Materi Item 4 -->
-                    <div class="p-6 hover:bg-blue-50/50 transition-colors group">
+                    <div class="p-6 hover:bg-purple-50/50 transition-colors group">
                         <div class="flex items-start gap-4">
                             <div class="w-10 h-10 bg-gradient-to-br from-red-100 to-red-200 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm group-hover:shadow-md transition-shadow">
                                 <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -400,7 +400,7 @@
                                 </div>
                             </div>
                             <div class="flex gap-2">
-                                <button onclick="editMateri(4)" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit">
+                                <button onclick="editMateri(4)" class="p-2 text-purple-600 hover:bg-purple-50 rounded-lg transition-colors" title="Edit">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                     </svg>
@@ -424,11 +424,11 @@
     <div id="modalTambahMateri" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-fade-in">
             <!-- Modal Header -->
-            <div class="sticky top-0 bg-gradient-to-r from-blue-950 via-blue-800 to-blue-600 px-6 py-4 flex items-center justify-between">
+            <div class="sticky top-0 bg-gradient-to-r from-pink-500 via-purple-500 to-purple-600 px-6 py-4 flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path>
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold text-white">Tambah Materi Baru</h3>
@@ -446,19 +446,19 @@
                 <!-- Judul Materi -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Judul Materi</label>
-                    <input type="text" id="judulMateri" required class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" placeholder="Masukkan judul materi">
+                    <input type="text" id="judulMateri" required class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500/20 focus:border-pink-500 transition-all" placeholder="Masukkan judul materi">
                 </div>
 
                 <!-- Deskripsi -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Deskripsi</label>
-                    <textarea id="deskripsiMateri" rows="3" required class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none" placeholder="Deskripsikan materi pembelajaran"></textarea>
+                    <textarea id="deskripsiMateri" rows="3" required class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500/20 focus:border-pink-500 transition-all resize-none" placeholder="Deskripsikan materi pembelajaran"></textarea>
                 </div>
 
                 <!-- Pertemuan -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Pertemuan Ke</label>
-                    <select id="pertemuanMateri" required class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+                    <select id="pertemuanMateri" required class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500/20 focus:border-pink-500 transition-all">
                         <option value="">Pilih Pertemuan</option>
                         <option value="1">Pertemuan 1</option>
                         <option value="2">Pertemuan 2</option>
@@ -501,24 +501,24 @@
 
                     <!-- PDF Upload Area -->
                     <div id="pdfUploadArea" class="space-y-4">
-                        <div id="dropZone" class="drag-area border-2 border-dashed border-blue-400 rounded-xl p-8 text-center bg-gradient-to-br from-blue-50 to-white cursor-pointer hover:border-blue-600 transition-all">
+                        <div id="dropZone" class="drag-area border-2 border-dashed border-pink-400 rounded-xl p-8 text-center bg-gradient-to-br from-pink-50 to-purple-50 cursor-pointer hover:border-pink-600 transition-all">
                             <input type="file" id="fileInput" accept=".pdf" class="hidden">
                             <div class="flex flex-col items-center gap-3">
-                                <div class="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center shadow-lg">
-                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="w-12 h-12 bg-gradient-to-br from-pink-100 to-purple-200 rounded-full flex items-center justify-center shadow-lg">
+                                    <svg class="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                                     </svg>
                                 </div>
                                 <div>
                                     <p class="text-gray-700 font-semibold mb-1">Drag & drop file PDF di sini</p>
-                                    <p class="text-sm text-gray-500">atau <span class="text-blue-600 font-semibold">klik untuk browse</span></p>
+                                    <p class="text-sm text-gray-500">atau <span class="text-pink-600 font-semibold">klik untuk browse</span></p>
                                 </div>
                                 <p class="text-xs text-gray-400">Max 10MB • PDF only</p>
                             </div>
                         </div>
 
                         <!-- File Preview -->
-                        <div id="filePreview" class="file-preview bg-blue-50 border-2 border-blue-200 rounded-lg p-4">
+                        <div id="filePreview" class="file-preview bg-pink-50 border-2 border-pink-200 rounded-lg p-4">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-3">
                                     <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
@@ -549,7 +549,7 @@
                     <div id="videoLinkArea" class="hidden space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Link Video (YouTube/Google Drive)</label>
-                            <input type="url" id="videoLink" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" placeholder="https://youtube.com/watch?v=...">
+                            <input type="url" id="videoLink" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 transition-all" placeholder="https://youtube.com/watch?v=...">
                             <p class="text-xs text-gray-500 mt-2">Paste link video dari YouTube atau Google Drive</p>
                         </div>
                         
@@ -564,14 +564,14 @@
                 </div>
 
                 <!-- Alert Info -->
-                <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-r-lg">
+                <div class="bg-pink-50 border-l-4 border-pink-500 p-4 rounded-r-lg">
                     <div class="flex items-start gap-3">
-                        <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5 text-pink-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                         <div>
-                            <p class="text-sm font-semibold text-blue-800 mb-1">Tips Upload Materi</p>
-                            <ul class="text-xs text-blue-700 space-y-1">
+                            <p class="text-sm font-semibold text-pink-800 mb-1">Tips Upload Materi</p>
+                            <ul class="text-xs text-pink-700 space-y-1">
                                 <li>• PDF max 10MB untuk performa optimal</li>
                                 <li>• Video gunakan YouTube/Google Drive untuk hemat storage</li>
                                 <li>• Pastikan judul & deskripsi jelas untuk mahasiswa</li>
@@ -585,9 +585,9 @@
                     <button type="button" onclick="closeTambahMateriModal()" class="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors">
                         Batal
                     </button>
-                    <button type="submit" class="flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-800 to-blue-600 hover:from-blue-900 hover:to-blue-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all">
+                    <button type="submit" class="flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
                         </svg>
                         Simpan Materi
                     </button>
@@ -634,12 +634,12 @@
             const videoArea = document.getElementById('videoLinkArea');
 
             if (type === 'pdf') {
-                tabPDF.className = 'flex-1 py-3 px-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-lg shadow-md transition-all';
+                tabPDF.className = 'flex-1 py-3 px-4 bg-gradient-to-r from-red-500 to-red-600 text-white font-bold rounded-lg shadow-md transition-all';
                 tabVideo.className = 'flex-1 py-3 px-4 bg-gray-200 text-gray-600 font-semibold rounded-lg transition-all hover:bg-gray-300';
                 pdfArea.classList.remove('hidden');
                 videoArea.classList.add('hidden');
             } else {
-                tabVideo.className = 'flex-1 py-3 px-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg shadow-md transition-all';
+                tabVideo.className = 'flex-1 py-3 px-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-bold rounded-lg shadow-md transition-all';
                 tabPDF.className = 'flex-1 py-3 px-4 bg-gray-200 text-gray-600 font-semibold rounded-lg transition-all hover:bg-gray-300';
                 videoArea.classList.remove('hidden');
                 pdfArea.classList.add('hidden');
