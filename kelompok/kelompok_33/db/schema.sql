@@ -1,3 +1,4 @@
+-- Skema Database untuk Aplikasi CleanSpot
 
 CREATE DATABASE IF NOT EXISTS cleanspot_db
   CHARACTER SET utf8mb4
@@ -5,7 +6,9 @@ CREATE DATABASE IF NOT EXISTS cleanspot_db
 
 USE cleanspot_db;
 
--- 2. Hapus tabel bila sudah ada
+-- 2. Hapus tabel bila sudah ada (urutan terbalik dari pembuatan)
+DROP TABLE IF EXISTS log_aktivitas;
+DROP TABLE IF EXISTS bukti_penanganan;
 DROP TABLE IF EXISTS komentar;
 DROP TABLE IF EXISTS penugasan;
 DROP TABLE IF EXISTS foto_laporan;
@@ -59,8 +62,12 @@ CREATE TABLE penugasan (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   laporan_id INT UNSIGNED NOT NULL,
   petugas_id INT UNSIGNED NOT NULL,
-  peran VARCHAR(100) DEFAULT 'petugas',
+  status_penugasan ENUM('ditugaskan','dikerjakan','selesai') NOT NULL DEFAULT 'ditugaskan',
+  mulai_pada TIMESTAMP NULL,
+  selesai_pada TIMESTAMP NULL,
+  catatan_petugas TEXT,
   assigned_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT fk_penugasan_laporan FOREIGN KEY (laporan_id) REFERENCES laporan(id) ON DELETE CASCADE,
   CONSTRAINT fk_penugasan_petugas FOREIGN KEY (petugas_id) REFERENCES pengguna(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -86,6 +93,34 @@ CREATE TABLE reset_password (
   CONSTRAINT fk_reset_pengguna FOREIGN KEY (pengguna_id) REFERENCES pengguna(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- 9. Tabel: bukti_penanganan
+CREATE TABLE bukti_penanganan (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  penugasan_id INT UNSIGNED NOT NULL,
+  nama_file VARCHAR(255) NOT NULL,
+  path_file VARCHAR(500) NOT NULL,
+  keterangan TEXT,
+  diunggah_pada TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_bukti_penugasan FOREIGN KEY (penugasan_id) REFERENCES penugasan(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 10. Tabel: log_aktivitas
+CREATE TABLE log_aktivitas (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  pengguna_id INT UNSIGNED NOT NULL,
+  aksi VARCHAR(100) NOT NULL,
+  target_tipe VARCHAR(50) DEFAULT NULL,
+  target_id INT UNSIGNED DEFAULT NULL,
+  detail TEXT,
+  dibuat_pada TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_log_pengguna FOREIGN KEY (pengguna_id) REFERENCES pengguna(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Index untuk performa
 CREATE INDEX idx_laporan_status ON laporan (status);
 CREATE INDEX idx_laporan_kategori ON laporan (kategori);
 CREATE INDEX idx_laporan_created_at ON laporan (created_at);
+CREATE INDEX idx_penugasan_status ON penugasan (status_penugasan);
+CREATE INDEX idx_penugasan_petugas ON penugasan (petugas_id);
+CREATE INDEX idx_log_pengguna ON log_aktivitas (pengguna_id);
+CREATE INDEX idx_log_dibuat ON log_aktivitas (dibuat_pada);

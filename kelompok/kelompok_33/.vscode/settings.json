@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "**/db/*.sql": "mysql"
+  },
+  "mssql.enableSqlLint": false
+}
