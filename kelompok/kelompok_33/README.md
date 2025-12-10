@@ -13,7 +13,7 @@ Warga dapat mengirim laporan dengan foto dan lokasi; petugas mengelola tugas pem
 ---
 
 ## Anggota Kelompok 33
-- **Dimas Faqih (Ketua)** - Dashboard Admin, Statistik & Peta (Chart.js, Leaflet/OpenStreetMap), UI/UX Design  
+- **Dimas Faqih (Ketua)** - Dashboard(Admin, Warga, dan Petugas), Statistik & Peta (Chart.js, Leaflet/OpenStreetMap), UI/UX Design  
 - **Alda** - User Management (register, login, role-based access, profil)  
 - **Nabila** - Laporan Sampah (form, upload foto, CRUD, pagination)  
 - **Alyaa** - Penanganan (petugas): update status, assign, komentar penanganan
@@ -239,18 +239,6 @@ Labels: "Tugas Baru" -> "Sedang Dikerjakan" -> "Selesai"
 
 ---
 
-## Contributing
-
-Project ini adalah tugas kelompok. Untuk kontribusi:
-
-1. Fork repository
-2. Create feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open Pull Request
-
----
-
 ## License
 
 Academic Project - Praktikum Pemrograman Web 2025  
@@ -262,9 +250,5 @@ Universitas Lampung
 
 **Kelompok 33**
 - Repository: [GitHub](https://github.com/DIMFAQ/TUBES_PRK_PEMWEB_2025-KELOMPOK-33)
-- Email: cleanspot33@example.com
 
 ---
-
-**Dibuat dengan ❤️ oleh Kelompok 33**  
-*Last Updated: Januari 2025*

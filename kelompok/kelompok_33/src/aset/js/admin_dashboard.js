@@ -1,8 +1,7 @@
-document.addEventListener('DOMContentLoaded', function() {
-    loadStatistics();
-    loadCharts();
-    loadMap();
-});
+let chartStatus = null;
+let chartKategori = null;
+let adminMap = null;
+
 async function loadStatistics() {
     try {
         const response = await fetch('../api/statistik_data.php');
@@ -26,9 +25,23 @@ async function loadCharts() {
     try {
         const response = await fetch('../api/statistik_data.php');
         const result = await response.json();
+
         if (result.success) {
             const data = result.data;
-            new Chart(document.getElementById('chart-status'), {
+
+            const statusCanvas = document.getElementById('chart-status');
+            const kategoriCanvas = document.getElementById('chart-kategori');
+
+            if (!statusCanvas || !kategoriCanvas) return;
+
+            if (chartStatus) {
+                chartStatus.destroy();
+            }
+            if (chartKategori) {
+                chartKategori.destroy();
+            }
+
+            chartStatus = new Chart(statusCanvas, {
                 type: 'doughnut',
                 data: {
                     labels: ['Baru', 'Diproses', 'Selesai'],
@@ -50,7 +63,8 @@ async function loadCharts() {
                     }
                 }
             });
-            new Chart(document.getElementById('chart-kategori'), {
+
+            chartKategori = new Chart(kategoriCanvas, {
                 type: 'pie',
                 data: {
                     labels: ['Organik', 'Non-Organik', 'Lainnya'],
@@ -78,10 +92,18 @@ async function loadCharts() {
     }
 }
 async function loadMap() {
-    const map = L.map('map').setView([-2.5, 118], 5);
+    const mapElement = document.getElementById('map');
+    if (!mapElement) return;
+
+    if (adminMap) {
+        adminMap.remove();
+    }
+
+    adminMap = L.map('map').setView([-2.5, 118], 5);
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Ã‚Â© OpenStreetMap contributors'
-    }).addTo(map);
+    }).addTo(adminMap);
     try {
         const response = await fetch('../api/map-data.php');
         const result = await response.json();
@@ -99,7 +121,8 @@ async function loadMap() {
                         weight: 2,
                         opacity: 1,
                         fillOpacity: 0.8
-                    }).addTo(map);
+                    }).addTo(adminMap);
+
                     marker.bindPopup(`
                         <div style="padding: 8px;">
                             <h4 style="font-weight: 600; font-size: 14px; margin-bottom: 4px;">${laporan.judul}</h4>
@@ -114,7 +137,7 @@ async function loadMap() {
             });
             if (markers.length > 0) {
                 const group = L.featureGroup(markers);
-                map.fitBounds(group.getBounds().pad(0.1));
+                adminMap.fitBounds(group.getBounds().pad(0.1));
             }
         }
     } catch (error) {
@@ -125,7 +148,9 @@ async function loadRecentReports() {
     try {
         const response = await fetch('../api/admin/ambil_laporan.php?limit=5');
         const result = await response.json();
+
         const tbody = document.querySelector('#table-laporan-terbaru tbody');
+        if (!tbody) return;
         if (result.success && result.data && result.data.items && result.data.items.length > 0) {
             tbody.innerHTML = result.data.items.map(laporan => {
                 let statusClass = 'badge-warning';
@@ -153,6 +178,8 @@ async function loadRecentReports() {
     } catch (error) {
         console.error('Error loading recent reports:', error);
         const tbody = document.querySelector('#table-laporan-terbaru tbody');
+        if (!tbody) return;
+
         tbody.innerHTML = `
             <tr>
                 <td colspan="5" style="text-align: center; color: #ef4444; padding: 24px;">
