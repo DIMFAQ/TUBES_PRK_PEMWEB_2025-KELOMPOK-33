@@ -35,16 +35,12 @@ $initial = strtoupper(substr($nama, 0, 1));
         </div>
         <nav class="sidebar-nav">
             <a href="beranda_warga.php" class="sidebar-item">
-                <i class="fas fa-chart-line"></i>
-                <span>Dashboard</span>
+                <i class="fas fa-home"></i>
+                <span>Beranda</span>
             </a>
             <a href="buat_laporan.php" class="sidebar-item active">
                 <i class="fas fa-plus-circle"></i>
                 <span>Buat Laporan</span>
-            </a>
-            <a href="laporan_saya.php" class="sidebar-item">
-                <i class="fas fa-file-alt"></i>
-                <span>Laporan Saya</span>
             </a>
         </nav>
         <div class="sidebar-footer">
@@ -55,19 +51,36 @@ $initial = strtoupper(substr($nama, 0, 1));
                     <p>Warga</p>
                 </div>
             </div>
-            <a href="../auth/logout.php" class="logout-btn" title="Keluar">
-                <i class="fas fa-sign-out-alt"></i>
-            </a>
         </div>
     </div>
     <!-- Main Content -->
     <div class="main-content">
+        <!-- Mobile Top Header -->
+        <div class="mobile-top-header">
+            <a href="beranda_warga.php" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div class="mobile-logo">
+                <i class="fas fa-leaf"></i>
+                <span>CleanSpot</span>
+            </div>
+            <p class="mobile-subtitle">Buat Laporan Baru</p>
+        </div>
+
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Cari lokasi...">
+            </div>
+        </div>
+
         <div class="dashboard-header">
             <h1>Buat Laporan Baru</h1>
             <p>Laporkan sampah di sekitar Anda untuk lingkungan yang lebih bersih</p>
         </div>
         <!-- Form Card -->
-        <div class="chart-card" style="max-width: 900px; margin: 0 auto;">
+        <div class="form-card">
             <div id="alert" style="display: none; padding: 12px; border-radius: 8px; margin-bottom: 20px;"></div>
             <form id="form-laporan" onsubmit="submitLaporan(event)">
                 <div class="form-group">
@@ -80,7 +93,7 @@ $initial = strtoupper(substr($nama, 0, 1));
                     <textarea id="deskripsi" required class="form-textarea" rows="4"
                         placeholder="Jelaskan kondisi sampah secara detail..."></textarea>
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group-grid">
                     <div class="form-group">
                         <label class="form-label">Kategori *</label>
                         <select id="kategori" required class="form-select">

@@ -35,11 +35,11 @@ $initial = strtoupper(substr($nama, 0, 1));
         </div>
         <nav class="sidebar-nav">
             <a href="beranda_petugas.php" class="sidebar-item active">
-                <i class="fas fa-chart-line"></i>
-                <span>Dashboard</span>
+                <i class="fas fa-home"></i>
+                <span>Beranda</span>
             </a>
             <a href="tugas_saya.php" class="sidebar-item">
-                <i class="fas fa-tasks"></i>
+                <i class="fas fa-clipboard-check"></i>
                 <span>Tugas Saya</span>
             </a>
         </nav>
@@ -58,11 +58,20 @@ $initial = strtoupper(substr($nama, 0, 1));
     </div>
     <!-- Main Content -->
     <div class="main-content">
+        <!-- Mobile Top Header -->
+        <div class="mobile-top-header">
+            <div class="mobile-logo">
+                <i class="fas fa-leaf"></i>
+                <span>CleanSpot</span>
+            </div>
+            <p class="mobile-subtitle">Sistem Pelaporan Sampah Kota</p>
+        </div>
+
         <!-- Top Navigation -->
         <div class="top-nav">
-            <div class="search-box">
+            <div class="search-box" style="visibility: hidden;">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Cari tugas...">
+                <input type="text" placeholder="">
             </div>
         </div>
         <!-- Dashboard Header -->
@@ -79,7 +88,7 @@ $initial = strtoupper(substr($nama, 0, 1));
                         <div class="stat-value" id="stat-ditugaskan">-</div>
                     </div>
                     <div class="stat-icon yellow">
-                        <i class="fas fa-clipboard-list"></i>
+                        <i class="fas fa-inbox"></i>
                     </div>
                 </div>
             </div>
@@ -90,7 +99,7 @@ $initial = strtoupper(substr($nama, 0, 1));
                         <div class="stat-value" id="stat-dikerjakan">-</div>
                     </div>
                     <div class="stat-icon orange">
-                        <i class="fas fa-tools"></i>
+                        <i class="fas fa-spinner"></i>
                     </div>
                 </div>
             </div>
@@ -127,30 +136,18 @@ $initial = strtoupper(substr($nama, 0, 1));
             </div>
             <div id="map" style="height: 400px; border-radius: 8px; overflow: hidden;"></div>
         </div>
-        <!-- Recent Tasks Table -->
-        <div class="table-card">
-            <div class="table-header">
-                <h3>Tugas Terbaru</h3>
+        <!-- Recent Tasks -->
+        <div class="section-header">
+            <h3>Tugas Terbaru</h3>
+            <a href="tugas_saya.php" class="btn btn-primary">
+                <i class="fas fa-clipboard-check"></i> Lihat Semua Tugas
+            </a>
+        </div>
+        <div id="tasks-container" class="tasks-grid">
+            <div class="loading-state">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Memuat tugas...</p>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Laporan</th>
-                        <th>Kategori</th>
-                        <th>Status</th>
-                        <th>Deskripsi</th>
-                        <th>Ditugaskan</th>
-                    </tr>
-                </thead>
-                <tbody id="table-tugas">
-                    <tr>
-                        <td colspan="5" style="text-align: center; padding: 40px; color: var(--gray-600);">
-                            <i class="fas fa-spinner fa-spin" style="font-size: 24px; margin-bottom: 12px;"></i>
-                            <div>Memuat data...</div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
     <script src="../aset/js/petugas_dashboard.js"></script>

@@ -33,16 +33,12 @@ $initial = strtoupper(substr($nama, 0, 1));
         </div>
         <nav class="sidebar-nav">
             <a href="beranda_warga.php" class="sidebar-item active">
-                <i class="fas fa-chart-line"></i>
-                <span>Dashboard</span>
+                <i class="fas fa-home"></i>
+                <span>Beranda</span>
             </a>
             <a href="buat_laporan.php" class="sidebar-item">
                 <i class="fas fa-plus-circle"></i>
                 <span>Buat Laporan</span>
-            </a>
-            <a href="laporan_saya.php" class="sidebar-item">
-                <i class="fas fa-file-alt"></i>
-                <span>Laporan Saya</span>
             </a>
         </nav>
         <div class="sidebar-footer">
@@ -60,27 +56,27 @@ $initial = strtoupper(substr($nama, 0, 1));
     </div>
     <!-- Main Content -->
     <div class="main-content">
-        <div class="dashboard-header">
-            <h1>Dashboard Warga</h1>
-            <p>Selamat datang, <?= htmlspecialchars($nama) ?>! Laporkan sampah di sekitar Anda.</p>
+        <!-- Mobile Top Header -->
+        <div class="mobile-top-header">
+            <div class="mobile-logo">
+                <i class="fas fa-leaf"></i>
+                <span>CleanSpot</span>
+            </div>
+            <p class="mobile-subtitle">Sistem Pelaporan Sampah Kota</p>
         </div>
-        <div style="text-align: right; margin-bottom: 24px;">
-            <a href="buat_laporan.php" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Buat Laporan Baru
-            </a>
-        </div>
+
         <!-- Stats Cards -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-card-header">
                     <div>
-                        <div class="stat-label">Total Laporan Saya</div>
+                        <div class="stat-label">Total Laporan</div>
                         <div class="stat-value" id="stat-total">
                             <i class="fas fa-spinner fa-spin"></i>
                         </div>
                     </div>
                     <div class="stat-icon" style="background: linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 100%); color: #8b5cf6;">
-                        <i class="fas fa-file-alt"></i>
+                        <i class="fas fa-clipboard-list"></i>
                     </div>
                 </div>
             </div>
@@ -93,7 +89,7 @@ $initial = strtoupper(substr($nama, 0, 1));
                         </div>
                     </div>
                     <div class="stat-icon orange">
-                        <i class="fas fa-clock"></i>
+                        <i class="fas fa-hourglass-half"></i>
                     </div>
                 </div>
             </div>
@@ -111,33 +107,27 @@ $initial = strtoupper(substr($nama, 0, 1));
                 </div>
             </div>
         </div>
-        <!-- Recent Reports Table -->
-        <div class="table-card">
-            <div class="table-header">
-                <h3>Laporan Terbaru Saya</h3>
-                <a href="laporan_saya.php" class="btn btn-secondary">
-                    Lihat Semua <i class="fas fa-arrow-right"></i>
+
+        <!-- Recent Reports Card List -->
+        <div class="reports-section">
+            <div class="section-header">
+                <h3>Laporan Terbaru</h3>
+                <a href="buat_laporan.php" class="btn btn-sm btn-primary">
+                    <i class="fas fa-plus"></i> Tambah Laporan
                 </a>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Judul</th>
-                        <th>Kategori</th>
-                        <th>Status</th>
-                        <th>Tanggal</th>
-                    </tr>
-                </thead>
-                <tbody id="table-laporan">
-                    <tr>
-                        <td colspan="4" style="text-align: center; padding: 48px; color: #9ca3af;">
-                            <i class="fas fa-spinner fa-spin fa-2x"></i>
-                            <p style="margin-top: 16px;">Memuat data...</p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div id="reports-container" class="reports-grid">
+                <div class="loading-state">
+                    <i class="fas fa-spinner fa-spin fa-2x"></i>
+                    <p>Memuat laporan...</p>
+                </div>
+            </div>
         </div>
+
+        <!-- Floating Action Button (Mobile Only) -->
+        <a href="buat_laporan.php" class="fab-button" title="Buat Laporan Baru">
+            <i class="fas fa-plus"></i>
+        </a>
     </div>
     <script src="../aset/js/warga_dashboard.js"></script>
     <script src="../assets/js/mobile-menu.js"></script>

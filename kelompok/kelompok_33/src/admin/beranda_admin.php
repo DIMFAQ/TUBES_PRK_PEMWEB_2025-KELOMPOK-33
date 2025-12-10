@@ -147,21 +147,25 @@ $initial = strtoupper(substr($nama_admin, 0, 1));
             <div class="table-header">
                 <h3>Laporan Terbaru</h3>
             </div>
-            <table>
+            <table class="admin-dashboard-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Pelapor</th>
-                        <th>Judul</th>
-                        <th>Kategori</th>
-                        <th>Status</th>
-                        <th>Tanggal</th>
-                        <th>Aksi</th>
+                        <th class="col-id">ID</th>
+                        <th class="col-pelapor">Pelapor</th>
+                        <th class="col-judul">Judul</th>
+                        <th class="col-kategori">Kategori</th>
+                        <th class="col-status">Status</th>
+                        <th class="col-tanggal">Tanggal</th>
+                        <th class="col-aksi">Aksi</th>
                     </tr>
                 </thead>
                 <tbody id="table-laporan-terbaru">
                     <tr>
-                        <td colspan="7" style="text-align: center; padding: 40px; color: var(--gray-600);">
+                        <td colspan="7" class="desktop-loading" style="text-align: center; padding: 40px; color: var(--gray-600);">
+                            <i class="fas fa-spinner fa-spin" style="font-size: 24px; margin-bottom: 12px;"></i>
+                            <div>Memuat data...</div>
+                        </td>
+                        <td colspan="3" class="mobile-loading" style="text-align: center; padding: 40px; color: var(--gray-600); display: none;">
                             <i class="fas fa-spinner fa-spin" style="font-size: 24px; margin-bottom: 12px;"></i>
                             <div>Memuat data...</div>
                         </td>

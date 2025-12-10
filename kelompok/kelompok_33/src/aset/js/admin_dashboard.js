@@ -149,46 +149,58 @@ async function loadRecentReports() {
         const response = await fetch('../api/admin/ambil_laporan.php?limit=5');
         const result = await response.json();
 
-        const tbody = document.querySelector('#table-laporan-terbaru tbody');
+        const tbody = document.getElementById('table-laporan-terbaru');
         if (!tbody) return;
+
         if (result.success && result.data && result.data.items && result.data.items.length > 0) {
             tbody.innerHTML = result.data.items.map(laporan => {
                 let statusClass = 'badge-warning';
                 if (laporan.status === 'selesai') statusClass = 'badge-success';
                 else if (laporan.status === 'diproses') statusClass = 'badge-info';
+
                 return `
                     <tr>
-                        <td>${laporan.judul}</td>
-                        <td>${laporan.kategori}</td>
-                        <td>${laporan.nama_pelapor}</td>
-                        <td><span class="badge ${statusClass}">${laporan.status}</span></td>
-                        <td>${new Date(laporan.created_at).toLocaleDateString('id-ID')}</td>
+                        <td class="col-id">#${laporan.id}</td>
+                        <td class="col-pelapor">${laporan.nama_pelapor}</td>
+                        <td class="col-judul">${laporan.judul}</td>
+                        <td class="col-kategori">${laporan.kategori}</td>
+                        <td class="col-status"><span class="badge ${statusClass}">${laporan.status}</span></td>
+                        <td class="col-tanggal">${new Date(laporan.created_at).toLocaleDateString('id-ID')}</td>
+                        <td class="col-aksi">
+                            <a href="detail_laporan_admin.php?id=${laporan.id}" class="btn btn-sm btn-primary">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </td>
                     </tr>
                 `;
             }).join('');
         } else {
             tbody.innerHTML = `
                 <tr>
-                    <td colspan="5" style="text-align: center; color: #9ca3af; padding: 24px;">
-                        Tidak ada laporan
+                    <td colspan="7" class="desktop-loading" style="text-align: center; color: #9ca3af; padding: 24px;">
+                        Tidak ada laporan terbaru
+                    </td>
+                    <td colspan="3" class="mobile-loading" style="text-align: center; color: #9ca3af; padding: 24px; display: none;">
+                        Tidak ada laporan terbaru
                     </td>
                 </tr>
             `;
         }
     } catch (error) {
         console.error('Error loading recent reports:', error);
-        const tbody = document.querySelector('#table-laporan-terbaru tbody');
+        const tbody = document.getElementById('table-laporan-terbaru');
         if (!tbody) return;
 
         tbody.innerHTML = `
             <tr>
-                <td colspan="5" style="text-align: center; color: #ef4444; padding: 24px;">
+                <td colspan="7" style="text-align: center; color: #ef4444; padding: 24px;">
                     Gagal memuat data
                 </td>
             </tr>
         `;
     }
 }
+
 document.addEventListener('DOMContentLoaded', function() {
     loadStatistics();
     loadCharts();

@@ -72,7 +72,10 @@ $initial = strtoupper(substr($nama_admin, 0, 1));
         </div>
         <div class="content-wrapper">
             <div class="page-header">
-                <h1 class="page-title">Log Aktivitas Sistem</h1>
+                <div>
+                    <h1 class="page-title">Aktivitas Sistem</h1>
+                    <p class="page-subtitle">Pantau semua aktivitas dan perubahan dalam sistem</p>
+                </div>
             </div>
             <div class="chart-card" style="margin-bottom: 24px;">
                 <div class="chart-header">
@@ -99,20 +102,23 @@ $initial = strtoupper(substr($nama_admin, 0, 1));
             </div>
             <div class="table-card">
                 <div style="overflow-x: auto;">
-                    <table class="data-table">
+                    <table class="data-table admin-log-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Waktu</th>
-                                <th>Pengguna</th>
-                                <th>Aksi</th>
-                                <th>Target</th>
-                                <th>Detail</th>
+                                <th class="col-id">ID</th>
+                                <th class="col-waktu">Waktu</th>
+                                <th class="col-pengguna">Pengguna</th>
+                                <th class="col-aksi">Aksi</th>
+                                <th class="col-target">Target</th>
+                                <th class="col-detail">Detail</th>
                             </tr>
                         </thead>
                         <tbody id="log-table">
                             <tr>
-                                <td colspan="6" style="text-align: center; padding: 40px; color: var(--gray-600);">
+                                <td colspan="6" class="desktop-loading" style="text-align: center; padding: 40px; color: var(--gray-600);">
+                                    <i class="fas fa-spinner fa-spin"></i> Memuat data...
+                                </td>
+                                <td colspan="3" class="mobile-loading" style="text-align: center; padding: 40px; color: var(--gray-600); display: none;">
                                     <i class="fas fa-spinner fa-spin"></i> Memuat data...
                                 </td>
                             </tr>
@@ -145,19 +151,29 @@ $initial = strtoupper(substr($nama_admin, 0, 1));
                     renderTable(result.data.items);
                     renderPagination(result.data.pagination);
                 } else {
-                    document.getElementById('log-table').innerHTML = 
-                        `<tr><td colspan="6" style="text-align: center; padding: 40px; color: var(--danger);">${result.message}</td></tr>`;
+                    document.getElementById('log-table').innerHTML = `
+                        <tr>
+                            <td colspan="6" class="desktop-loading" style="text-align: center; padding: 40px; color: var(--danger);">${result.message}</td>
+                            <td colspan="3" class="mobile-loading" style="text-align: center; padding: 40px; color: var(--danger); display: none;">${result.message}</td>
+                        </tr>`;
                 }
             } catch (error) {
                 console.error('Error:', error);
-                document.getElementById('log-table').innerHTML = 
-                    '<tr><td colspan="6" style="text-align: center; padding: 40px; color: var(--danger);">Terjadi kesalahan</td></tr>';
+                document.getElementById('log-table').innerHTML = `
+                    <tr>
+                        <td colspan="6" class="desktop-loading" style="text-align: center; padding: 40px; color: var(--danger);">Terjadi kesalahan</td>
+                        <td colspan="3" class="mobile-loading" style="text-align: center; padding: 40px; color: var(--danger); display: none;">Terjadi kesalahan</td>
+                    </tr>`;
             }
         }
         function renderTable(items) {
             const tbody = document.getElementById('log-table');
             if (items.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 40px; color: var(--gray-600);">Tidak ada data</td></tr>';
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="desktop-loading" style="text-align: center; padding: 40px; color: var(--gray-600);">Tidak ada data</td>
+                        <td colspan="3" class="mobile-loading" style="text-align: center; padding: 40px; color: var(--gray-600); display: none;">Tidak ada data</td>
+                    </tr>`;
                 return;
             }
             tbody.innerHTML = items.map(log => {
@@ -171,14 +187,14 @@ $initial = strtoupper(substr($nama_admin, 0, 1));
                 }[log.aksi] || `<span class="badge">${log.aksi}</span>`;
                 return `
                     <tr>
-                        <td style="font-size: 13px; color: var(--gray-600);">${log.id}</td>
-                        <td style="font-size: 13px;">${formatTanggal(log.created_at)}</td>
-                        <td style="font-weight: 500;">${log.pengguna_nama || 'System'}</td>
-                        <td>${aksiBadge}</td>
-                        <td style="font-size: 13px; color: var(--gray-700);">
+                        <td class="col-id" style="font-size: 13px; color: var(--gray-600);">${log.id}</td>
+                        <td class="col-waktu" style="font-size: 13px;">${formatTanggal(log.created_at)}</td>
+                        <td class="col-pengguna" style="font-weight: 500;">${log.pengguna_nama || 'System'}</td>
+                        <td class="col-aksi">${aksiBadge}</td>
+                        <td class="col-target" style="font-size: 13px; color: var(--gray-700);">
                             ${log.target_tipe ? `${log.target_tipe} #${log.target_id}` : '-'}
                         </td>
-                        <td style="font-size: 13px; color: var(--gray-600); max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${log.detail || '-'}</td>
+                        <td class="col-detail" style="font-size: 13px; color: var(--gray-600); max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${log.detail || '-'}</td>
                     </tr>
                 `;
             }).join('');
@@ -236,5 +252,6 @@ $initial = strtoupper(substr($nama_admin, 0, 1));
         });
         loadLogs();
     </script>
+    <script src="../assets/js/mobile-menu.js"></script>
 </body>
 </html>

@@ -46,18 +46,22 @@ async function loadLaporan(page) {
 function renderTable(data) {
     const tbody = document.getElementById('table-body');
     if (data.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 40px; color: var(--gray-600);">Tidak ada data</td></tr>';
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7" class="desktop-loading" style="text-align: center; padding: 40px; color: var(--gray-600);">Tidak ada data</td>
+                <td colspan="3" class="mobile-loading" style="text-align: center; padding: 40px; color: var(--gray-600); display: none;">Tidak ada data</td>
+            </tr>`;
         return;
     }
     tbody.innerHTML = data.map(row => `
         <tr>
-            <td style="font-size: 13px; color: var(--gray-600);">#${row.id}</td>
-            <td style="font-weight: 600;">${row.judul}</td>
-            <td>${row.nama_pelapor}</td>
-            <td>${getKategoriBadge(row.kategori)}</td>
-            <td>${getStatusBadge(row.status)}</td>
-            <td style="font-size: 13px; color: var(--gray-600);">${formatDate(row.created_at)}</td>
-            <td>
+            <td class="col-id" style="font-size: 13px; color: var(--gray-600);">#${row.id}</td>
+            <td class="col-judul" style="font-weight: 600;">${row.judul}</td>
+            <td class="col-pelapor">${row.nama_pelapor}</td>
+            <td class="col-kategori">${getKategoriBadge(row.kategori)}</td>
+            <td class="col-status">${getStatusBadge(row.status)}</td>
+            <td class="col-tanggal" style="font-size: 13px; color: var(--gray-600);">${formatDate(row.created_at)}</td>
+            <td class="col-aksi">
                 <div style="display: flex; gap: 8px;">
                     <button onclick="window.location.href='detail_laporan_admin.php?id=${row.id}'" class="btn btn-sm btn-secondary">
                         <i class="fas fa-eye"></i> Detail

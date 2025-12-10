@@ -95,20 +95,24 @@ $initial = strtoupper(substr($nama_admin, 0, 1));
             <div class="table-header">
                 <h3>Daftar Pengguna</h3>
             </div>
-            <table>
+            <table class="admin-pengguna-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Nama</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Telepon</th>
-                        <th>Terdaftar</th>
+                        <th class="col-id">ID</th>
+                        <th class="col-nama">Nama</th>
+                        <th class="col-email">Email</th>
+                        <th class="col-role">Role</th>
+                        <th class="col-telepon">Telepon</th>
+                        <th class="col-terdaftar">Terdaftar</th>
                     </tr>
                 </thead>
                 <tbody id="pengguna-table">
                     <tr>
-                        <td colspan="6" style="text-align: center; padding: 40px; color: var(--gray-600);">
+                        <td colspan="6" class="desktop-loading" style="text-align: center; padding: 40px; color: var(--gray-600);">
+                            <i class="fas fa-spinner fa-spin" style="font-size: 24px; margin-bottom: 12px;"></i>
+                            <div>Memuat data...</div>
+                        </td>
+                        <td colspan="3" class="mobile-loading" style="text-align: center; padding: 40px; color: var(--gray-600); display: none;">
                             <i class="fas fa-spinner fa-spin" style="font-size: 24px; margin-bottom: 12px;"></i>
                             <div>Memuat data...</div>
                         </td>
@@ -141,19 +145,29 @@ $initial = strtoupper(substr($nama_admin, 0, 1));
                     renderTable(result.data.items);
                     renderPagination(result.data.pagination);
                 } else {
-                    document.getElementById('pengguna-table').innerHTML = 
-                        `<tr><td colspan="6" style="text-align: center; padding: 40px; color: var(--danger);">${result.message}</td></tr>`;
+                    document.getElementById('pengguna-table').innerHTML = `
+                        <tr>
+                            <td colspan="6" class="desktop-loading" style="text-align: center; padding: 40px; color: var(--danger);">${result.message}</td>
+                            <td colspan="3" class="mobile-loading" style="text-align: center; padding: 40px; color: var(--danger); display: none;">${result.message}</td>
+                        </tr>`;
                 }
             } catch (error) {
                 console.error('Error:', error);
-                document.getElementById('pengguna-table').innerHTML = 
-                    '<tr><td colspan="6" style="text-align: center; padding: 40px; color: var(--danger);">Terjadi kesalahan</td></tr>';
+                document.getElementById('pengguna-table').innerHTML = `
+                    <tr>
+                        <td colspan="6" class="desktop-loading" style="text-align: center; padding: 40px; color: var(--danger);">Terjadi kesalahan</td>
+                        <td colspan="3" class="mobile-loading" style="text-align: center; padding: 40px; color: var(--danger); display: none;">Terjadi kesalahan</td>
+                    </tr>`;
             }
         }
         function renderTable(items) {
             const tbody = document.getElementById('pengguna-table');
             if (items.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 40px; color: var(--gray-600);">Tidak ada data</td></tr>';
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="desktop-loading" style="text-align: center; padding: 40px; color: var(--gray-600);">Tidak ada data</td>
+                        <td colspan="3" class="mobile-loading" style="text-align: center; padding: 40px; color: var(--gray-600); display: none;">Tidak ada data</td>
+                    </tr>`;
                 return;
             }
             tbody.innerHTML = items.map(user => {
@@ -162,14 +176,23 @@ $initial = strtoupper(substr($nama_admin, 0, 1));
                     'petugas': '<span class="badge info">Petugas</span>',
                     'warga': '<span class="badge success">Warga</span>'
                 }[user.role] || '<span class="badge">Unknown</span>';
+                
+                const roleOptions = `
+                    <select class="role-select" onchange="updateRole(${user.id}, this.value)" ${user.role === 'admin' ? 'style="pointer-events: none; opacity: 0.6;"' : ''}>
+                        <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
+                        <option value="petugas" ${user.role === 'petugas' ? 'selected' : ''}>Petugas</option>
+                        <option value="warga" ${user.role === 'warga' ? 'selected' : ''}>Warga</option>
+                    </select>
+                `;
+                
                 return `
                     <tr>
-                        <td>${user.id}</td>
-                        <td style="font-weight: 600;">${user.nama}</td>
-                        <td>${user.email}</td>
-                        <td>${roleBadge}</td>
-                        <td>${user.telepon || '-'}</td>
-                        <td style="font-size: 13px; color: var(--gray-600);">${formatTanggal(user.created_at)}</td>
+                        <td class="col-id">${user.id}</td>
+                        <td class="col-nama" style="font-weight: 600;">${user.nama}</td>
+                        <td class="col-email">${user.email}</td>
+                        <td class="col-role">${roleOptions}</td>
+                        <td class="col-telepon">${user.telepon || '-'}</td>
+                        <td class="col-terdaftar" style="font-size: 13px; color: var(--gray-600);">${formatTanggal(user.created_at)}</td>
                     </tr>
                 `;
             }).join('');
@@ -235,7 +258,43 @@ $initial = strtoupper(substr($nama_admin, 0, 1));
                 timeout = setTimeout(later, wait);
             };
         }
+        
+        async function updateRole(userId, newRole) {
+            if (!confirm(`Yakin ingin mengubah role pengguna ini menjadi ${newRole}?`)) {
+                loadPengguna();
+                return;
+            }
+            
+            try {
+                const response = await fetch('../api/admin/ubah_role.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_id: userId,
+                        role: newRole
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('Role berhasil diubah');
+                    loadPengguna();
+                } else {
+                    alert('Gagal mengubah role: ' + result.message);
+                    loadPengguna();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan saat mengubah role');
+                loadPengguna();
+            }
+        }
+        
         loadPengguna();
     </script>
+    <script src="../assets/js/mobile-menu.js"></script>
 </body>
 </html>

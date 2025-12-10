@@ -31,55 +31,97 @@ async function loadLaporan() {
         const response = await fetch('../api/warga/ambil_laporan_saya.php?per_page=10');
         const result = await response.json();
         if (result.success) {
-            renderTable(result.data);
+            renderCards(result.data);
         }
     } catch (error) {
         console.error('Error loading laporan:', error);
     }
 }
-function renderTable(data) {
-    const tbody = document.getElementById('table-laporan');
+
+function renderCards(data) {
+    const container = document.getElementById('reports-container');
+    
+    if (!container) {
+        console.error('reports-container element not found');
+        return;
+    }
+    
     if (data.length === 0) {
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="4" style="text-align: center; padding: 48px; color: #9ca3af;">
-                    <i class="fas fa-inbox fa-3x" style="margin-bottom: 16px; opacity: 0.5;"></i>
-                    <p>Belum ada laporan</p>
-                    <a href="buat_laporan.php" class="btn btn-primary" style="margin-top: 16px;">
-                        <i class="fas fa-plus"></i> Buat Laporan Pertama
-                    </a>
-                </td>
-            </tr>
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-inbox"></i>
+                <p>Belum ada laporan</p>
+            </div>
         `;
         return;
     }
-    tbody.innerHTML = data.map(row => {
+
+    container.innerHTML = data.map(row => {
         let statusClass = 'badge-warning';
-        if (row.status === 'selesai') statusClass = 'badge-success';
-        else if (row.status === 'diproses') statusClass = 'badge-info';
-        let statusText = row.status.charAt(0).toUpperCase() + row.status.slice(1);
+        let statusText = 'Sedang Diproses';
+        
+        if (row.status === 'selesai') {
+            statusClass = 'badge-success';
+            statusText = 'Selesai';
+        } else if (row.status === 'diproses') {
+            statusClass = 'badge-info';
+            statusText = 'Sedang Diproses';
+        } else if (row.status === 'baru') {
+            statusClass = 'badge-warning';
+            statusText = 'Baru';
+        }
+
+        let imageHTML = '';
+        if (row.foto_laporan) {
+            imageHTML = `<img src="../uploads/laporan/${row.foto_laporan}" alt="${row.judul}" class="report-image" loading="lazy">`;
+        } else {
+            imageHTML = `
+                <div class="report-image report-placeholder">
+                    <i class="fas fa-trash-alt"></i>
+                    <span>No Photo</span>
+                </div>
+            `;
+        }
+
         return `
-            <tr>
-                <td><strong>${row.judul}</strong></td>
-                <td>${row.kategori}</td>
-                <td><span class="badge ${statusClass}">${statusText}</span></td>
-                <td>${formatDate(row.created_at)}</td>
-            </tr>
+            <div class="report-card">
+                ${imageHTML}
+                <div class="report-content">
+                    <div class="report-header">
+                        <span class="report-id">LP-${String(row.id_laporan).padStart(3, '0')}</span>
+                        <span class="badge ${statusClass}">${statusText}</span>
+                    </div>
+                    <h4 class="report-title">${row.judul}</h4>
+                    <p class="report-description">${row.deskripsi.substring(0, 80)}${row.deskripsi.length > 80 ? '...' : ''}</p>
+                    <div class="report-meta">
+                        <div class="report-meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${row.alamat || 'Lokasi tidak tersedia'}</span>
+                        </div>
+                        <div class="report-meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>${formatDateTime(row.created_at)}</span>
+                        </div>
+                    </div>
+                    <div class="report-actions">
+                        <a href="laporan_saya.php?id=${row.id_laporan}" class="btn-detail">
+                            <i class="fas fa-eye"></i> Lihat Detail
+                        </a>
+                    </div>
+                </div>
+            </div>
         `;
     }).join('');
 }
-function formatDate(dateString) {
-    return new Date(dateString).toLocaleDateString('id-ID', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
-}
-function formatDate(dateString) {
+
+function formatDateTime(dateString) {
     const date = new Date(dateString);
-    return date.toLocaleDateString('id-ID', { 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric'
-    });
+    const day = date.getDate();
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    
+    return `${day} ${month} ${year}, ${hours}:${minutes}`;
 }

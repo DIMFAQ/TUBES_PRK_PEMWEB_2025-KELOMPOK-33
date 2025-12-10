@@ -104,39 +104,142 @@ async function loadTugas() {
         const response = await fetch('../api/petugas/ambil_tugas.php?per_page=10');
         const result = await response.json();
         if (result.success) {
-            renderTable(result.data);
+            renderCards(result.data);
         }
     } catch (error) {
         console.error('Error loading tugas:', error);
     }
 }
-function renderTable(data) {
-    const tbody = document.getElementById('table-tugas');
-    if (!data || data.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 48px; color: #9ca3af;">Tidak ada tugas</td></tr>';
+function renderCards(data) {
+    const container = document.getElementById('tasks-container');
+    if (!container) {
+        console.error('tasks-container not found');
         return;
     }
-    tbody.innerHTML = data.map(row => {
-        let statusClass = 'badge-warning';
+    
+    if (!data || data.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-clipboard-check"></i>
+                <p>Tidak ada tugas terbaru</p>
+            </div>
+        `;
+        return;
+    }
+    
+    container.innerHTML = data.map(row => {
+        let statusClass = 'warning';
         let statusText = 'Ditugaskan';
         if (row.status_penugasan === 'dikerjakan') {
-            statusClass = 'badge-info';
+            statusClass = 'info';
             statusText = 'Dikerjakan';
         } else if (row.status_penugasan === 'selesai') {
-            statusClass = 'badge-success';
+            statusClass = 'success';
             statusText = 'Selesai';
         }
-        console.log('Row data:', row);
+        
+        let actionButtons = '';
+        if (row.status_penugasan === 'ditugaskan') {
+            actionButtons = `
+                <button onclick="lihatDetail(${row.id})" class="btn-action btn-outline">
+                    <i class="fas fa-eye"></i> Detail
+                </button>
+                <button onclick="mulaiTugas(${row.id})" class="btn-action btn-primary">
+                    <i class="fas fa-play"></i> Mulai
+                </button>
+            `;
+        } else if (row.status_penugasan === 'dikerjakan') {
+            actionButtons = `
+                <button onclick="lihatDetail(${row.id})" class="btn-action btn-outline">
+                    <i class="fas fa-eye"></i> Detail
+                </button>
+                <button onclick="selesaikanTugas(${row.id})" class="btn-action btn-success">
+                    <i class="fas fa-check"></i> Selesaikan
+                </button>
+            `;
+        } else {
+            actionButtons = `
+                <button onclick="lihatDetail(${row.id})" class="btn-action btn-outline" style="flex: 1;">
+                    <i class="fas fa-eye"></i> Lihat Detail
+                </button>
+            `;
+        }
+        
         return `
-            <tr>
-                <td><strong>${row.judul_laporan || 'Tanpa Judul'}</strong></td>
-                <td>${row.kategori || '-'}</td>
-                <td><span class="badge ${statusClass}">${statusText}</span></td>
-                <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${(row.deskripsi || '-').replace(/"/g, '&quot;')}">${row.deskripsi || '-'}</td>
-                <td>${row.assigned_at ? new Date(row.assigned_at).toLocaleDateString('id-ID') : '-'}</td>
-            </tr>
+            <div class="task-card">
+                <div class="task-header">
+                    <span class="task-id">#${row.id}</span>
+                    <span class="badge ${statusClass}">${statusText}</span>
+                </div>
+                <div class="task-content">
+                    <h4 class="task-title">${row.judul_laporan || 'Tanpa Judul'}</h4>
+                    <p class="task-category"><i class="fas fa-tag"></i> ${row.kategori || '-'}</p>
+                    <p class="task-description">${row.deskripsi || '-'}</p>
+                    <div class="task-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> ${row.alamat || 'Lokasi tidak tersedia'}</span>
+                        <span><i class="fas fa-calendar"></i> ${row.assigned_at ? new Date(row.assigned_at).toLocaleDateString('id-ID') : '-'}</span>
+                    </div>
+                </div>
+                <div class="task-actions">
+                    ${actionButtons}
+                </div>
+            </div>
         `;
     }).join('');
+}
+
+function lihatDetail(tugasId) {
+    window.location.href = `detail_tugas.php?id=${tugasId}`;
+}
+
+async function mulaiTugas(tugasId) {
+    if (!confirm('Mulai mengerjakan tugas ini?')) return;
+    
+    try {
+        const response = await fetch('../api/petugas/mulai_tugas.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ tugas_id: tugasId })
+        });
+        const result = await response.json();
+        
+        if (result.success) {
+            alert('Tugas berhasil dimulai!');
+            loadTugas();
+            loadStats();
+            loadMapMarkers();
+        } else {
+            alert('Gagal memulai tugas: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan saat memulai tugas');
+    }
+}
+
+async function selesaikanTugas(tugasId) {
+    if (!confirm('Tandai tugas ini sebagai selesai?')) return;
+    
+    try {
+        const response = await fetch('../api/petugas/selesaikan_tugas.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ tugas_id: tugasId })
+        });
+        const result = await response.json();
+        
+        if (result.success) {
+            alert('Tugas berhasil diselesaikan!');
+            loadTugas();
+            loadStats();
+            loadMapMarkers();
+        } else {
+            alert('Gagal menyelesaikan tugas: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan saat menyelesaikan tugas');
+    }
 }
 function getStatusColor(status) {
     const colors = {

@@ -51,16 +51,27 @@ $initial = strtoupper(substr($nama, 0, 1));
                     <p>Petugas</p>
                 </div>
             </div>
-            <a href="../auth/logout.php" class="logout-btn" title="Keluar">
-                <i class="fas fa-sign-out-alt"></i>
-            </a>
         </div>
     </div>
     <!-- Main Content -->
     <div class="main-content">
-        <div class="dashboard-header">
-            <h1>Tugas Saya</h1>
-            <p>Kelola semua tugas pembersihan yang ditugaskan kepada Anda</p>
+        <!-- Mobile Top Header -->
+        <div class="mobile-top-header">
+            <a href="beranda_petugas.php" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div class="mobile-logo">
+                <i class="fas fa-leaf"></i>
+                <span>CleanSpot</span>
+            </div>
+            <p class="mobile-subtitle">Sistem Pelaporan Sampah Kota</p>
+        </div>
+
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Daftar Tugas</h1>
+                <p class="page-subtitle">Kelola semua tugas pembersihan yang ditugaskan kepada Anda</p>
+            </div>
         </div>
         <!-- Filter Tabs -->
         <div style="display: flex; gap: 8px; margin-bottom: 24px; border-bottom: 2px solid #e5e7eb; padding-bottom: 0; overflow-x: auto;">
@@ -77,12 +88,12 @@ $initial = strtoupper(substr($nama, 0, 1));
                 <i class="fas fa-check-circle"></i> Selesai
             </button>
         </div>
-        <!-- Table -->
-        <div class="table-card">
-            <div class="table-header">
-                <h3>Daftar Tugas</h3>
-                <div id="summary-info" style="color: #6b7280; font-size: 14px;"></div>
-            </div>
+        
+        <!-- Summary Info -->
+        <div id="summary-info" style="color: #6b7280; font-size: 14px; margin-bottom: 16px; font-weight: 500;"></div>
+        
+        <!-- Desktop Table -->
+        <div class="table-card desktop-only">
             <table>
                 <thead>
                     <tr>
@@ -103,6 +114,14 @@ $initial = strtoupper(substr($nama, 0, 1));
                     </tr>
                 </tbody>
             </table>
+        </div>
+        
+        <!-- Mobile Cards -->
+        <div id="tasks-container" class="tasks-grid mobile-only">
+            <div class="loading-state">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Memuat tugas...</p>
+            </div>
         </div>
     </div>
     <!-- Modal Detail -->
@@ -126,12 +145,16 @@ $initial = strtoupper(substr($nama, 0, 1));
                 const response = await fetch('../api/petugas/ambil_tugas.php');
                 const result = await response.json();
                 const tbody = document.getElementById('table-body');
+                const container = document.getElementById('tasks-container');
+                
                 if (result.success && result.data && result.data.length > 0) {
                     let filteredData = result.data;
                     if (currentFilter !== 'all') {
                         filteredData = result.data.filter(t => t.status_penugasan === currentFilter);
                     }
+                    
                     if (filteredData.length === 0) {
+                        // Desktop table empty
                         tbody.innerHTML = `
                             <tr>
                                 <td colspan="6" style="text-align: center; padding: 48px; color: #9ca3af;">
@@ -140,9 +163,18 @@ $initial = strtoupper(substr($nama, 0, 1));
                                 </td>
                             </tr>
                         `;
+                        // Mobile cards empty
+                        container.innerHTML = `
+                            <div class="empty-state">
+                                <i class="fas fa-inbox"></i>
+                                <p>Tidak ada tugas dengan status ini</p>
+                            </div>
+                        `;
                         document.getElementById('summary-info').textContent = '';
                         return;
                     }
+                    
+                    // Render Desktop Table
                     tbody.innerHTML = filteredData.map(tugas => {
                         let statusClass = 'badge-warning';
                         let statusText = 'Ditugaskan';
@@ -153,6 +185,7 @@ $initial = strtoupper(substr($nama, 0, 1));
                             statusClass = 'badge-success';
                             statusText = 'Selesai';
                         }
+                        
                         let actionButtons = '';
                         if (tugas.status_penugasan === 'ditugaskan') {
                             actionButtons = `
@@ -179,6 +212,7 @@ $initial = strtoupper(substr($nama, 0, 1));
                                 </button>
                             `;
                         }
+                        
                         return `
                             <tr>
                                 <td><strong>${tugas.judul_laporan || 'Tanpa Judul'}</strong></td>
@@ -190,6 +224,68 @@ $initial = strtoupper(substr($nama, 0, 1));
                             </tr>
                         `;
                     }).join('');
+                    
+                    // Render Mobile Cards
+                    container.innerHTML = filteredData.map(tugas => {
+                        let statusClass = 'warning';
+                        let statusText = 'Ditugaskan';
+                        if (tugas.status_penugasan === 'dikerjakan') {
+                            statusClass = 'info';
+                            statusText = 'Dikerjakan';
+                        } else if (tugas.status_penugasan === 'selesai') {
+                            statusClass = 'success';
+                            statusText = 'Selesai';
+                        }
+                        
+                        let actionButtons = '';
+                        if (tugas.status_penugasan === 'ditugaskan') {
+                            actionButtons = `
+                                <button onclick="viewDetail(${tugas.laporan_id})" class="btn-action btn-outline">
+                                    <i class="fas fa-eye"></i> Detail
+                                </button>
+                                <button onclick="mulaiTugas(${tugas.id})" class="btn-action btn-primary">
+                                    <i class="fas fa-play"></i> Mulai
+                                </button>
+                            `;
+                        } else if (tugas.status_penugasan === 'dikerjakan') {
+                            actionButtons = `
+                                <button onclick="viewDetail(${tugas.laporan_id})" class="btn-action btn-outline">
+                                    <i class="fas fa-eye"></i> Detail
+                                </button>
+                                <button onclick="selesaikanTugas(${tugas.id})" class="btn-action btn-success">
+                                    <i class="fas fa-check"></i> Selesaikan
+                                </button>
+                            `;
+                        } else {
+                            actionButtons = `
+                                <button onclick="viewDetail(${tugas.laporan_id})" class="btn-action btn-outline" style="flex: 1;">
+                                    <i class="fas fa-eye"></i> Lihat Detail
+                                </button>
+                            `;
+                        }
+                        
+                        return `
+                            <div class="task-card">
+                                <div class="task-header">
+                                    <span class="task-id">#${tugas.id}</span>
+                                    <span class="badge ${statusClass}">${statusText}</span>
+                                </div>
+                                <div class="task-content">
+                                    <h4 class="task-title">${tugas.judul_laporan || 'Tanpa Judul'}</h4>
+                                    <p class="task-category"><i class="fas fa-tag"></i> ${tugas.kategori || '-'}</p>
+                                    <p class="task-description">${tugas.deskripsi || '-'}</p>
+                                    <div class="task-meta">
+                                        <span><i class="fas fa-map-marker-alt"></i> ${tugas.alamat || 'Lokasi tidak tersedia'}</span>
+                                        <span><i class="fas fa-calendar"></i> ${tugas.assigned_at ? new Date(tugas.assigned_at).toLocaleDateString('id-ID') : '-'}</span>
+                                    </div>
+                                </div>
+                                <div class="task-actions">
+                                    ${actionButtons}
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                    
                     document.getElementById('summary-info').textContent = 
                         `Menampilkan ${filteredData.length} tugas`;
                 } else {
@@ -200,6 +296,12 @@ $initial = strtoupper(substr($nama, 0, 1));
                                 <p>Belum ada tugas</p>
                             </td>
                         </tr>
+                    `;
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>Belum ada tugas</p>
+                        </div>
                     `;
                     document.getElementById('summary-info').textContent = '';
                 }
@@ -212,6 +314,12 @@ $initial = strtoupper(substr($nama, 0, 1));
                             <p>Gagal memuat data</p>
                         </td>
                     </tr>
+                `;
+                document.getElementById('tasks-container').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p style="color: #ef4444;">Gagal memuat data</p>
+                    </div>
                 `;
             }
         }
