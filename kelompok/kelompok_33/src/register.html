@@ -3,14 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Register — Alda Studio</title>
+  <title>Register — TUBES PPW 33</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body class="bg-gray-50 min-h-screen flex items-center justify-center">
   <div class="max-w-md w-full p-8">
     <div class="bg-white p-8 rounded-2xl shadow">
-      <h2 class="text-2xl font-semibold">Register</h2>
+      <h2 class="text-2xl font-semibold">Registrasi</h2>
+      <p class="text-sm text-muted mt-1">Silahkan Daftarkan Diri</p>
       <form id="regForm" class="mt-6 space-y-3" onsubmit="return false;">
         <div>
           <label class="block text-sm">Nama</label>
@@ -32,17 +33,6 @@
           <label class="block text-sm">Alamat (opsional)</label>
           <input id="regAlamat" class="w-full p-3 border rounded-lg" placeholder="Alamat">
         </div>
-        <div>
-          <label class="block text-sm">Role</label>
-          <select id="regRole" class="w-full p-3 border rounded-lg">
-            <option value="warga">Warga</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div>
-        <div id="adminCodeWrap" class="hidden">
-          <label class="block text-sm">Admin Code</label>
-          <input id="regAdminCode" class="w-full p-3 border rounded-lg" placeholder="Masukkan admin code jika mendaftar sebagai admin">
-        </div>
         <div class="flex items-center justify-between gap-3">
           <button id="regBtn" class="px-4 py-2 bg-sky-600 text-white rounded-lg">Daftar</button>
           <a href="login.html" class="text-sm text-blue-600">Sudah punya akun? Masuk</a>
@@ -53,12 +43,6 @@
   </div>
 
   <script>
-    const regRole = document.getElementById('regRole');
-    const adminWrap = document.getElementById('adminCodeWrap');
-    regRole.addEventListener('change', () => {
-      adminWrap.classList.toggle('hidden', regRole.value !== 'admin');
-    });
-
     function showMsg(el, msg, isError = true) {
       el.textContent = msg;
       el.style.color = isError ? '#dc2626' : '#16a34a';
@@ -71,11 +55,8 @@
       const password = document.getElementById('regPassword').value;
       const telepon = document.getElementById('regTelepon').value.trim();
       const alamat = document.getElementById('regAlamat').value.trim();
-      const role = document.getElementById('regRole').value;
-      const admin_code = document.getElementById('regAdminCode').value.trim();
 
-      const body = { nama, email, password, telepon, alamat, role };
-      if (role === 'admin') body.admin_code = admin_code;
+      const body = { nama, email, password, telepon, alamat, role: 'warga' };
 
       try {
         const res = await fetch('register.php', {
@@ -89,7 +70,6 @@
         }
         showMsg(document.getElementById('regMsg'), 'Registrasi berhasil — Silakan login', false);
         document.getElementById('regForm').reset();
-        adminWrap.classList.add('hidden');
       } catch (err) {
         showMsg(document.getElementById('regMsg'), err.message || 'Network error');
       }

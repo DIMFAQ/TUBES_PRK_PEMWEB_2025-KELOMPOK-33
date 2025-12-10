@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Login — Alda Studio</title>
+  <title>Login — TUBES PPW 33</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body class="bg-gray-50 min-h-screen flex items-center justify-center">
   <div class="max-w-md w-full p-8">
     <div class="bg-white p-8 rounded-2xl shadow">
-      <h2 class="text-2xl font-semibold">Masuk</h2>
+      <h2 class="text-2xl font-semibold">Login</h2>
       <p class="text-sm text-muted mt-1">Masuk dengan akun Anda</p>
       <form id="loginForm" class="mt-6 space-y-4" onsubmit="return false;">
         <div>
@@ -22,7 +22,7 @@
           <input id="loginPassword" type="password" required class="w-full p-3 border rounded-lg" placeholder="••••••">
         </div>
         <div class="flex items-center justify-between">
-          <button id="loginBtn" class="px-4 py-2 bg-emerald-600 text-white rounded-lg">Masuk</button>
+          <button id="loginBtn" class="px-4 py-2 bg-emerald-600 text-white rounded-lg">Login</button>
           <a href="register.html" class="text-sm text-blue-600">Belum punya akun? Daftar</a>
         </div>
         <div id="loginMsg" class="text-sm text-red-600"></div>
@@ -55,20 +55,6 @@
         document.getElementById('loginForm').reset();
       } catch (err) {
         showMsg(document.getElementById('loginMsg'), err.message || 'Network error');
-      }
-    });
-
-    document.getElementById('whoami').addEventListener('click', async () => {
-      const token = localStorage.getItem('token');
-      const pre = document.getElementById('profile');
-      if (!token) { pre.textContent = 'Tidak ada token. Silakan login.'; pre.classList.remove('hidden'); return; }
-      try {
-        const res = await fetch('me.php', { headers: { 'Authorization': 'Bearer ' + token } });
-        const data = await res.json();
-        pre.textContent = JSON.stringify(data, null, 2);
-        pre.classList.remove('hidden');
-      } catch (err) {
-        pre.textContent = err.message || 'Network error'; pre.classList.remove('hidden');
       }
     });
   </script>
