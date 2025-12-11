@@ -31,7 +31,29 @@ Aplikasi ini menerapkan konsep **Smart City** untuk meningkatkan efisiensi penge
 
 ---
 
-## 🚀 Cara Menjalankan Aplikasi
+## �️ Database Design (ERD)
+
+![ERD CleanSpot](./src/assets/ERD.jpg)
+
+### Database Schema Overview
+CleanSpot menggunakan 4 tabel utama yang saling berelasi:
+
+1. **pengguna** - Menyimpan data user (admin, petugas, warga)
+2. **laporan** - Data laporan sampah dari warga
+3. **penugasan** - Tracking penugasan petugas ke laporan
+4. **log_aktivitas** - Audit trail semua aktivitas sistem
+
+**Relasi:**
+- Satu user bisa membuat banyak laporan (1:M)
+- Satu laporan bisa memiliki banyak penugasan/history (1:M)
+- Satu petugas bisa menerima banyak tugas (1:M)
+- Semua aktivitas user tercatat di log (1:M)
+
+Detail lengkap struktur database ada di [Database Design Section](#️-database-design-erd-1) di bawah.
+
+---
+
+## �🚀 Cara Menjalankan Aplikasi
 
 ### Prerequisites
 - PHP 8.0 atau lebih tinggi
