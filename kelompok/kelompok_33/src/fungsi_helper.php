@@ -25,7 +25,10 @@ function cek_login() {
         if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
             json_response(['success' => false, 'message' => 'Unauthorized'], 401);
         }
-        header('Location: /cleanspot/src/login_page.html');
+        // Redirect ke index.php (landing page dengan modal login)
+        $base_path = str_replace('/src/fungsi_helper.php', '', __FILE__);
+        $base_path = str_replace('\\', '/', $base_path);
+        header('Location: /TUBES_PRK_PEMWEB_2025-KELOMPOK-33/kelompok/kelompok_33/src/index.php');
         exit;
     }
 }

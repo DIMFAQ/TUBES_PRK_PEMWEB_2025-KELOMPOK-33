@@ -150,7 +150,7 @@ try {
     }
     echo "</table>";
     echo "<p class='success'>Ã¢Å“â€¦ Seeding selesai! Silakan login dengan salah satu akun di atas.</p>";
-    echo "<a href='login_page.html' class='btn'>Ã°Å¸â€Â Login Sekarang</a>";
+    echo "<a href='index.php' class='btn'>🏠 Kembali ke Beranda</a>";
 } catch (Exception $e) {
     echo "<p class='error'>Ã¢ÂÅ’ Error: " . htmlspecialchars($e->getMessage()) . "</p>";
 }

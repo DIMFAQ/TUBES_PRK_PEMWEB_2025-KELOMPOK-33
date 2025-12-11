@@ -1992,7 +1992,7 @@
                     membuat lingkungan lebih baik. Daftar gratis dan mulai laporkan hari ini.
                 </p>
                 <div class="cta-buttons">
-                    <a href="register_page.html" class="landing-btn landing-btn-white">
+                    <a href="#" onclick="openRegisterModal(); return false;" class="landing-btn landing-btn-white">
                         Daftar Sekarang - Gratis <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i>
                     </a>
                 </div>
@@ -2043,7 +2043,7 @@
                 <h2 class="modal-title">Masuk ke CleanSpot</h2>
                 <p class="modal-subtitle">Masukkan kredensial Anda untuk melanjutkan</p>
                 
-                <form action="auth/login.php" method="POST">
+                <form id="loginForm">
                     <div class="form-group">
                         <label class="form-label">Email</label>
                         <input type="email" name="email" class="form-input" placeholder="nama@email.com" required>
@@ -2053,6 +2053,8 @@
                         <label class="form-label">Password</label>
                         <input type="password" name="password" class="form-input" placeholder="Masukkan password" required>
                     </div>
+                    
+                    <div id="loginError" style="color: #ef4444; font-size: 0.875rem; margin-bottom: 1rem; display: none;"></div>
                     
                     <button type="submit" class="form-submit">
                         Masuk Sekarang <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i>
@@ -2085,7 +2087,7 @@
                 <h2 class="modal-title">Buat Akun Baru</h2>
                 <p class="modal-subtitle">Isi form di bawah untuk mendaftar</p>
                 
-                <form action="auth/register_session.php" method="POST">
+                <form id="registerForm">
                     <div class="form-group">
                         <label class="form-label">Nama Lengkap</label>
                         <input type="text" name="nama" class="form-input" placeholder="Nama lengkap Anda" required>
@@ -2106,6 +2108,9 @@
                         <input type="tel" name="no_telp" class="form-input" placeholder="08xxxxxxxxxx" required>
                     </div>
                     
+                    <div id="registerError" style="color: #ef4444; font-size: 0.875rem; margin-bottom: 1rem; display: none;"></div>
+                    <div id="registerSuccess" style="color: #10b981; font-size: 0.875rem; margin-bottom: 1rem; display: none;"></div>
+                    
                     <button type="submit" class="form-submit">
                         Daftar Sekarang <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i>
                     </button>
@@ -2119,15 +2124,84 @@
     </div>
 
     <script>
+        // Login Form Handler
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = {
+                email: formData.get('email'),
+                password: formData.get('password')
+            };
+            
+            try {
+                const response = await fetch('auth/login_session.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    window.location.href = result.data.redirect;
+                } else {
+                    document.getElementById('loginError').textContent = result.message || 'Login gagal';
+                    document.getElementById('loginError').style.display = 'block';
+                }
+            } catch (error) {
+                document.getElementById('loginError').textContent = 'Terjadi kesalahan. Silakan coba lagi.';
+                document.getElementById('loginError').style.display = 'block';
+            }
+        });
+        
+        // Register Form Handler
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = {
+                nama: formData.get('nama'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+                no_telp: formData.get('no_telp')
+            };
+            
+            try {
+                const response = await fetch('auth/register_session.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    document.getElementById('registerSuccess').textContent = result.message || 'Registrasi berhasil! Silakan login.';
+                    document.getElementById('registerSuccess').style.display = 'block';
+                    document.getElementById('registerError').style.display = 'none';
+                    setTimeout(() => switchToLogin(), 1500);
+                } else {
+                    document.getElementById('registerError').textContent = result.message || 'Registrasi gagal';
+                    document.getElementById('registerError').style.display = 'block';
+                    document.getElementById('registerSuccess').style.display = 'none';
+                }
+            } catch (error) {
+                document.getElementById('registerError').textContent = 'Terjadi kesalahan. Silakan coba lagi.';
+                document.getElementById('registerError').style.display = 'block';
+                document.getElementById('registerSuccess').style.display = 'none';
+            }
+        });
+        
         // Modal Functions
         function openLoginModal() {
             document.getElementById('loginModal').classList.add('active');
             document.body.style.overflow = 'hidden';
+            document.getElementById('loginError').style.display = 'none';
         }
 
         function closeLoginModal() {
             document.getElementById('loginModal').classList.remove('active');
             document.body.style.overflow = 'auto';
+            document.getElementById('loginError').style.display = 'none';
         }
 
         function openRegisterModal() {
