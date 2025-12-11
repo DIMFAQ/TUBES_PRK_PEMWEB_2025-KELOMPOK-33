@@ -1,0 +1,80 @@
+# ==========================================
+# .gitignore - Sistem Kelas Online Mini
+# ==========================================
+
+# PHP
+*.log
+*.cache
+
+# Database
+*.sql.backup
+*.db
+
+# Uploads folder (file uploads from users)
+uploads/*
+!uploads/.gitkeep
+
+# Config files with sensitive data
+config/database.php
+config/config.php
+
+# IDE and Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Node modules (if using any build tools)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Dependencies
+vendor/
+composer.lock
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Logs
+logs/
+*.log
+error_log
+
+# Cache
+cache/
+*.cache
+
+# Backup files
+*.backup
+*.bak
+*.old
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Coverage reports
+coverage/
+*.coverage
+
+# Build outputs (jika ada)
+dist/
+build/
