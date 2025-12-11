@@ -6,10 +6,10 @@ Laboratorium Teknik Komputer - Universitas Lampung
 ---
 
 ## 👥 Anggota Kelompok 33
-- **Dimas Faqih (2317051007) - Ketua** - Dashboard (Admin, Warga, Petugas), Statistik & Peta (Chart.js, Leaflet/OpenStreetMap), UI/UX Design  
-- **Alda (2317051050)** - User Management (register, login, role-based access, profil)  
-- **Nabila (2317051023)** - Laporan Sampah (form, upload foto, CRUD, pagination)  
-- **Alyaa (2317051051)** - Penanganan (petugas): update status, assign, komentar penanganan
+- **Dimas Faqih Nur Aulia Rohman (2317051007) - Ketua** - Dashboard (Admin, Warga, Petugas), Statistik & Peta (Chart.js, Leaflet/OpenStreetMap), landing page UI/UX Design  
+- **Aldanti Cahyani Putri (2317051050)** - User Management (register, login, role-based access, profil)  
+- **Nabila Zahra (2317051023)** - Laporan Sampah (form, upload foto, CRUD, pagination)  
+- **Alyaa zahra taufiq (2317051051)** - Penanganan (petugas): update status, assign, komentar penanganan
 
 ---
 
@@ -303,7 +303,7 @@ Labels: "Tugas Baru" -> "Sedang Dikerjakan" -> "Selesai"
 
 ### Entity Relationship Diagram
 
-![ERD CleanSpot](./screenshots/erd-cleanspot.png)
+![ERD CleanSpot](./src/assets/ERD.jpg)
 
 ### Tabel Utama
 
